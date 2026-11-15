@@ -1,0 +1,3235 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Almazaya MathQuest — Tuesday PLSV Supervision | Grade 7</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            skyquest: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              300: '#7DD3FC',
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              600: '#0284C7',
+              700: '#0369A1',
+              800: '#075985',
+              900: '#0C4A6E',
+            }
+          },
+          boxShadow: {
+            'soft': '0 8px 30px -4px rgba(14, 165, 233, 0.10)',
+            'card': '0 2px 14px -2px rgba(15, 23, 42, 0.05)',
+            'pill': '0 4px 12px rgba(2, 132, 199, 0.18)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Base typography scale for 16:9 Classroom Projector Focus Mode */
+    :root {
+      --base-scale: 100%;
+    }
+
+    html {
+      font-size: var(--base-scale);
+    }
+
+    html.projector-mode {
+      --base-scale: 114%;
+    }
+
+    body {
+      background-color: #F3F8FC;
+      color: #1E293B;
+      overflow-x: hidden;
+    }
+
+    /* Subtle floating animation for Mr. Taqwa's Scholar Falcon Mascot */
+    @keyframes mascotFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(1.5deg); }
+    }
+    .animate-mascot {
+      animation: mascotFloat 3.6s ease-in-out infinite;
+    }
+
+    /* Smooth tab panel entrance */
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .tab-panel-active {
+      animation: tabFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Celebration pop animation */
+    @keyframes popBadge {
+      0% { transform: scale(0.92); opacity: 0; }
+      65% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popBadge 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Smooth physics-like tilt for the Balance Scale Beam */
+    .scale-beam {
+      transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: 260px 112px;
+    }
+
+    .scale-pan-group {
+      transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Monospace math expression styling */
+    .math-expr {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.02em;
+    }
+
+    /* Notebook ruled background for Core Notes board card */
+    .notebook-surface {
+      background-image: linear-gradient(to bottom, transparent 31px, rgba(186, 230, 253, 0.32) 32px);
+      background-size: 100% 32px;
+    }
+
+    /* Subtle scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-skyquest-200 selection:text-skyquest-900 pb-24 lg:pb-6">
+
+  <!-- Toast Notification Container (Replaces alert() cleanly) -->
+  <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2.5 pointer-events-none max-w-xs sm:max-w-sm"></div>
+
+  <!-- =====================================================================
+       LOGIN GATE MODAL (Student & Supervisor Authentication — Pass: amz)
+       ===================================================================== -->
+  <div id="login-gate-modal" class="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-skyquest-100 animate-pop my-auto">
+      <!-- Top School Header -->
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-skyquest-500 to-blue-600 text-white font-extrabold flex items-center justify-center text-base shadow-pill shrink-0">
+          7
+        </div>
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-skyquest-600">SMP Almazaya Islamic School</span>
+          <h2 class="font-extrabold text-slate-800 text-lg leading-tight">Almazaya MathQuest</h2>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-2xl bg-sky-50/90 border border-skyquest-200/80 mb-5">
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          Assalamu'alaikum! Pilih kelas dan masukkan <strong>Nama Lengkap</strong> serta <strong>Password</strong> untuk masuk ke kelas <strong>Mr. Taqwa (Grade 7 — PLSV)</strong>.
+        </p>
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div id="login-class-wrapper">
+          <label for="login-class-select" class="block text-xs font-extrabold text-slate-700 mb-1">
+            Pilih Kelas (Grade 7)
+          </label>
+          <select id="login-class-select" onchange="populateRosterDatalist()" class="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+            <option value="7.4" selected>Grade 7.4</option>
+            <option value="7.3">Grade 7.3</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="login-id-input" class="block text-xs font-extrabold text-slate-700 mb-1">
+            ID / Nama Lengkap Siswa <span class="text-slate-400 font-semibold">(atau ketik: supervisor)</span>
+          </label>
+          <input type="text" id="login-id-input" list="student-roster-list" required autocomplete="off"
+                 placeholder="Ketik / pilih nama lengkapmu atau 'supervisor'..."
+                 class="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+          <datalist id="student-roster-list"></datalist>
+        </div>
+
+        <div>
+          <label for="login-pass-input" class="block text-xs font-extrabold text-slate-700 mb-1">
+            Password Kelas
+          </label>
+          <input type="password" id="login-pass-input" required
+                 placeholder="Masukkan password..."
+                 class="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+        </div>
+
+        <div id="login-error-box" class="hidden p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold"></div>
+
+        <button type="submit" class="w-full py-3.5 px-5 rounded-2xl bg-skyquest-600 hover:bg-skyquest-700 text-white font-extrabold text-sm shadow-pill transition-all cursor-pointer">
+          Masuk ke Kelas Mr. Taqwa →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MAIN APPLICATION SHELL (16:9 3-Column Desktop + Mobile Single Column)
+       ===================================================================== -->
+  <div id="app-shell" class="max-w-[1540px] mx-auto px-3 sm:px-5 pt-3 sm:pt-5 transition-all duration-300">
+    <div id="layout-grid" class="grid grid-cols-1 lg:grid-cols-[248px_1fr_316px] gap-4 sm:gap-5 items-start">
+
+      <!-- ===================================================================
+           COLUMN 1: LEFT SIDEBAR (Desktop Navigation & Mr. Taqwa Profile)
+           =================================================================== -->
+      <aside id="left-sidebar" class="hidden lg:flex flex-col bg-white rounded-3xl p-4 shadow-card border border-slate-100 sticky top-5 min-h-[calc(100vh-2.5rem)] justify-between">
+        <div>
+          <!-- Brand Header -->
+          <div class="flex items-center gap-3 px-2 py-2 mb-5">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-skyquest-500 to-blue-600 flex items-center justify-center shadow-pill shrink-0">
+              <!-- Scholar Falcon Mini SVG -->
+              <svg class="w-7 h-7" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="35" r="19" fill="#FFFFFF"/>
+                <path d="M16 22L32 14L48 22L32 30L16 22Z" fill="#1E293B"/>
+                <path d="M46 23V32" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="25" cy="34" r="3.5" fill="#0F172A"/>
+                <circle cx="39" cy="34" r="3.5" fill="#0F172A"/>
+                <circle cx="26" cy="33" r="1.2" fill="#FFFFFF"/>
+                <circle cx="40" cy="33" r="1.2" fill="#FFFFFF"/>
+                <path d="M28.5 40L32 45L35.5 40H28.5Z" fill="#F59E0B"/>
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <h1 class="font-extrabold text-base text-slate-800 leading-tight tracking-tight truncate">Almazaya MathQuest</h1>
+              <p class="text-[11px] font-semibold text-skyquest-600 truncate">Mr. Taqwa • Tuesday PLSV</p>
+            </div>
+          </div>
+
+          <!-- Navigation Tabs -->
+          <nav class="space-y-1.5" aria-label="Main Lesson Navigation">
+            <button type="button" onclick="switchTab('home')" data-tab-btn="home" class="sidebar-tab-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-bold bg-skyquest-50 text-skyquest-700 transition-all text-left cursor-pointer">
+              <span class="w-6 text-center text-base">🏠</span>
+              <span>Home</span>
+            </button>
+
+            <button type="button" onclick="switchTab('balance')" data-tab-btn="balance" class="sidebar-tab-btn w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-all text-left cursor-pointer">
+              <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-base">⚖️</span>
+                <span>Balance Lab</span>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-extrabold rounded-full bg-emerald-100 text-emerald-700">Sim</span>
+            </button>
+
+            <button type="button" onclick="switchTab('notes')" data-tab-btn="notes" class="sidebar-tab-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-all text-left cursor-pointer">
+              <span class="w-6 text-center text-base">📖</span>
+              <span>Core Notes</span>
+            </button>
+
+            <button type="button" onclick="switchTab('examples')" data-tab-btn="examples" class="sidebar-tab-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-all text-left cursor-pointer">
+              <span class="w-6 text-center text-base">💡</span>
+              <span>Examples</span>
+            </button>
+
+            <button type="button" onclick="switchTab('challenge')" data-tab-btn="challenge" class="sidebar-tab-btn w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-all text-left cursor-pointer">
+              <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-base">🏆</span>
+                <span>Challenge Arena</span>
+              </div>
+              <span id="sidebar-quest-badge" class="px-2 py-0.5 text-[11px] font-extrabold rounded-full bg-amber-100 text-amber-700">0/5</span>
+            </button>
+
+            <button type="button" onclick="switchTab('supervisor')" id="sidebar-supervisor-btn" data-tab-btn="supervisor" class="hidden sidebar-tab-btn w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-extrabold text-purple-700 bg-purple-50 hover:bg-purple-100 transition-all text-left cursor-pointer">
+              <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-base">📋</span>
+                <span>Form Supervisi</span>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-extrabold rounded-full bg-purple-600 text-white">VIP</span>
+            </button>
+
+            <button type="button" onclick="switchTab('guru')" id="sidebar-guru-btn" data-tab-btn="guru" class="hidden sidebar-tab-btn w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-sm font-extrabold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition-all text-left cursor-pointer">
+              <div class="flex items-center gap-3">
+                <span class="w-6 text-center text-base">📡</span>
+                <span>Live Monitor</span>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-extrabold rounded-full bg-emerald-600 text-white">LIVE</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Bottom Section: RPM Supervision Badge + Mr. Taqwa Class Profile -->
+        <div class="space-y-3 pt-4 border-t border-slate-100">
+          <!-- Lingora-inspired Supervision Focus Card -->
+          <div class="rounded-2xl bg-gradient-to-br from-sky-50 via-skyquest-100/70 to-blue-100/70 p-3.5 border border-skyquest-200/80 text-center">
+            <div class="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-600 flex items-center justify-center mx-auto mb-2 text-lg">
+              ⚖️
+            </div>
+            <p class="text-xs font-extrabold text-slate-800">RPM Deep Learning</p>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+              Memahami &rarr; Mengaplikasikan &rarr; Merefleksikan (2 JP)
+            </p>
+            <button type="button" onclick="switchTab('balance')" class="mt-2.5 w-full py-2 px-3 rounded-xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs font-bold shadow-xs transition-all cursor-pointer">
+              Open Apple Scale →
+            </button>
+          </div>
+
+          <!-- Mr. Taqwa's Class Profile Card -->
+          <div class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 border border-slate-100">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-skyquest-600 to-blue-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                MT
+              </div>
+              <div class="min-w-0">
+                <p id="sidebar-user-name" class="text-xs font-extrabold text-slate-800 truncate">Mr. Taqwa</p>
+                <p id="sidebar-user-role" class="text-[10px] font-semibold text-slate-500 truncate">Grade 7 • SMP Almazaya</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="toggleSound()" id="sound-toggle-desktop" title="Toggle Sound Effects" class="p-1.5 rounded-xl hover:bg-white text-slate-600 text-sm transition-colors cursor-pointer">
+                🔊
+              </button>
+              <button type="button" onclick="openLoginModal()" title="Ganti Akun / Login Ulang" class="p-1.5 rounded-xl hover:bg-white text-slate-600 text-xs font-bold transition-colors cursor-pointer">
+                🔄
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ===================================================================
+           COLUMN 2: CENTER MAIN CONTENT AREA (Header + 6 Dynamic Tabs)
+           =================================================================== -->
+      <main class="space-y-4 sm:space-y-5 min-w-0">
+
+        <!-- TOP HEADER BAR (Responsive for both 16:9 Projector & Smartphone) -->
+        <header class="bg-white rounded-2xl sm:rounded-3xl px-4 py-3 shadow-card border border-slate-100 flex flex-wrap items-center justify-between gap-2.5">
+          <!-- Left: Mobile Brand + Current Session Badge -->
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="lg:hidden w-9 h-9 rounded-xl bg-gradient-to-br from-skyquest-500 to-blue-600 text-white font-extrabold flex items-center justify-center text-xs shrink-0 shadow-xs">
+              G7
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-skyquest-50 text-skyquest-700 border border-skyquest-200/70">
+                  SMP Almazaya Islamic School
+                </span>
+                <span id="header-active-user-badge" onclick="openLoginModal()" title="Klik untuk ganti user" class="cursor-pointer px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  👤 Guest • Grade 7
+                </span>
+                <span id="header-tab-subtitle" class="hidden xl:inline-block text-xs font-semibold text-slate-400">
+                  Tuesday Session • PLSV (2 JP / 80 Mins)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Streak, Gems, 16:9 Projector Focus Mode & Mobile Quick Teacher Mode -->
+          <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+            <!-- 16:9 Projector Focus Mode Button -->
+            <button type="button" onclick="toggleProjectorMode()" id="projector-mode-btn" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200/80 transition-all flex items-center gap-1.5 cursor-pointer" title="Enlarge text for classroom 16:9 projector">
+              <span>🖥️</span>
+              <span id="projector-btn-label" class="hidden sm:inline">16:9 Projector Focus</span>
+              <span class="sm:hidden">Focus</span>
+            </button>
+
+            <!-- Mobile Quick Teacher Mode Toggle -->
+            <button type="button" onclick="toggleTeacherMode()" id="mobile-teacher-toggle-btn" class="lg:hidden px-2.5 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200 transition-all cursor-pointer">
+              👨‍🏫 Key: OFF
+            </button>
+
+            <!-- Warm Amber Streak Counter -->
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-700 font-extrabold text-xs sm:text-sm" title="Class Streak">
+              <span>🔥</span>
+              <span id="streak-counter">2 Days</span>
+            </div>
+
+            <!-- Blue Gem Counter -->
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200/80 text-skyquest-700 font-extrabold text-xs sm:text-sm" title="Earned Gems">
+              <span>💎</span>
+              <span id="gem-counter">0</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- =================================================================
+             TAB 1: HOME VIEW
+             ================================================================= -->
+        <section id="tab-home" class="tab-panel tab-panel-active space-y-5">
+
+          <!-- Hero Banner (Lingora / Duolingo Sky-Blue Gradient Style) -->
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-200/90 via-skyquest-100 to-blue-100 p-5 sm:p-7 border border-skyquest-200 shadow-soft">
+            <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-white/50 blur-xl pointer-events-none"></div>
+            <div class="absolute left-1/4 -bottom-12 w-56 h-32 rounded-full bg-sky-300/30 blur-xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div class="text-center sm:text-left max-w-xl">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/85 backdrop-blur-xs text-skyquest-800 text-xs font-extrabold mb-3 shadow-2xs">
+                  <span>⚖️</span>
+                  <span>Grade 7 • Persamaan Linear Satu Variabel (PLSV)</span>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight leading-snug">
+                  Assalamu'alaikum, <span id="hero-student-greeting" class="text-skyquest-600">Grade 7!</span> Ready to Crack the Mystery Box? 🍎
+                </h2>
+
+                <p class="text-sm sm:text-base text-slate-600 mt-2.5 leading-relaxed">
+                  Kemarin kita mencari hasil akhir dengan substitusi (<span class="math-expr font-bold text-skyquest-800">3x + 4</span>). Hari ini kita balik misinya: jika totalnya sudah diketahui (<span class="math-expr font-bold text-skyquest-800">3x + 4 = 40</span>), temukan nilai <span class="math-expr font-bold text-skyquest-800">x</span> pakai <strong>Timbangan Apel</strong>!
+                </p>
+
+                <div class="mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <button type="button" onclick="switchTab('balance')" class="px-6 py-3 rounded-full bg-skyquest-600 hover:bg-skyquest-700 text-white font-extrabold text-sm shadow-pill transition-all inline-flex items-center gap-2 cursor-pointer">
+                    <span>⚖️ Open Apple Balance Lab</span>
+                    <span>→</span>
+                  </button>
+                  <button type="button" onclick="switchTab('challenge')" class="px-5 py-3 rounded-full bg-white/90 hover:bg-white text-skyquest-800 font-bold text-sm border border-skyquest-200 transition-all cursor-pointer">
+                    🏆 PLSV Challenge Arena
+                  </button>
+                </div>
+              </div>
+
+              <!-- Friendly Scholar Falcon Mascot holding Apple Balance Tile -->
+              <div class="shrink-0 animate-mascot">
+                <svg class="w-36 h-36 sm:w-44 sm:h-44 drop-shadow-md" viewBox="0 0 210 210" fill="none" aria-label="Almazaya Scholar Falcon Mascot">
+                  <ellipse cx="105" cy="186" rx="58" ry="12" fill="#7DD3FC" opacity="0.55"/>
+                  <rect x="62" y="168" width="86" height="12" rx="4" fill="#0284C7"/>
+                  <rect x="66" y="170" width="78" height="8" rx="2" fill="#F8FAFC"/>
+                  <rect x="68" y="156" width="74" height="12" rx="4" fill="#F59E0B"/>
+                  <rect x="72" y="158" width="66" height="8" rx="2" fill="#FEF3C7"/>
+
+                  <!-- Bird Body -->
+                  <ellipse cx="105" cy="112" rx="44" ry="48" fill="#0284C7"/>
+                  <ellipse cx="105" cy="118" rx="31" ry="37" fill="#F0F9FF"/>
+
+                  <!-- Left Waving Wing -->
+                  <path d="M62 102C37 88 29 66 42 58C52 52 66 74 70 94" fill="#0369A1"/>
+                  <!-- Right Wing -->
+                  <path d="M148 102C168 106 175 123 163 133C152 141 142 125 140 113" fill="#0369A1"/>
+
+                  <!-- Warm Amber Scarf -->
+                  <path d="M70 132C90 142 120 142 140 132L144 144C120 154 90 154 66 144L70 132Z" fill="#FBBF24"/>
+                  <path d="M128 140L150 159L136 165L120 144Z" fill="#F59E0B"/>
+
+                  <!-- Eyes -->
+                  <circle cx="89" cy="90" r="11.5" fill="#FFFFFF"/>
+                  <circle cx="121" cy="90" r="11.5" fill="#FFFFFF"/>
+                  <circle cx="91" cy="90" r="5.5" fill="#0F172A"/>
+                  <circle cx="119" cy="90" r="5.5" fill="#0F172A"/>
+                  <circle cx="93" cy="88" r="2" fill="#FFFFFF"/>
+                  <circle cx="121" cy="88" r="2" fill="#FFFFFF"/>
+
+                  <!-- Beak -->
+                  <path d="M97 102L105 113L113 102H97Z" fill="#F59E0B"/>
+
+                  <!-- Scholar Mortarboard Cap -->
+                  <path d="M62 66L105 46L148 66L105 84L62 66Z" fill="#1E293B"/>
+                  <rect x="83" y="72" width="44" height="10" rx="4" fill="#334155"/>
+                  <path d="M144 67V88" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="144" cy="90" r="3.5" fill="#F59E0B"/>
+
+                  <!-- Floating PLSV Tile -->
+                  <g transform="translate(148, 30)">
+                    <rect width="54" height="36" rx="10" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2"/>
+                    <text x="27" y="23" text-anchor="middle" fill="#0284C7" font-family="monospace" font-weight="bold" font-size="13">2x+3=11</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Continue Learning Card -->
+          <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-extrabold text-slate-800 text-base">Continue Learning</h3>
+              <span class="text-xs font-bold text-skyquest-600">RPM Deep Learning • 2 JP</span>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-2xl bg-slate-50/90 border border-slate-100">
+              <div class="flex items-center gap-4 min-w-0 flex-1 w-full">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-skyquest-500 to-indigo-500 text-white flex flex-col items-center justify-center shrink-0 shadow-xs">
+                  <span class="math-expr font-extrabold text-xs">ax±b=c</span>
+                  <span class="text-[10px] font-semibold opacity-90">Unit 4</span>
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <h4 class="font-extrabold text-slate-800 text-sm sm:text-base truncate">
+                    Linear Equations in One Variable (PLSV) &amp; Balance Scale
+                  </h4>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    Unit 4 • Tuesday Supervision Session (Mr. Taqwa's Class)
+                  </p>
+                  <div class="flex items-center gap-3 mt-2.5">
+                    <div class="flex-1 bg-slate-200/80 h-2.5 rounded-full overflow-hidden">
+                      <div id="home-continue-bar" class="bg-skyquest-600 h-full rounded-full transition-all duration-500" style="width: 15%"></div>
+                    </div>
+                    <span id="home-continue-pct" class="text-xs font-extrabold text-skyquest-700 shrink-0">15%</span>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" onclick="switchTab('balance')" class="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-skyquest-600 hover:bg-skyquest-700 text-white font-bold text-xs sm:text-sm shadow-xs transition-all shrink-0 cursor-pointer">
+                ▶ Start Lab
+              </button>
+            </div>
+          </div>
+
+          <!-- Build Your Skills 4-Card Grid -->
+          <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+            <div class="flex items-center justify-between mb-3.5">
+              <h3 class="font-extrabold text-slate-800 text-base">Build Your PLSV Skills</h3>
+              <span class="text-xs font-semibold text-slate-400">4 Pillars of Equation Solving</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5">
+              <!-- Skill 1: Balance Scale -->
+              <button type="button" onclick="switchTab('balance')" class="group text-left p-4 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100/80 border border-emerald-100 transition-all cursor-pointer">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-2xs">
+                    ⚖️
+                  </div>
+                  <span class="text-emerald-600 font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <h4 class="font-extrabold text-emerald-950 text-sm">Balance Scale</h4>
+                <p class="text-xs font-semibold text-emerald-700/80 mt-0.5">Timbangan Apel</p>
+                <p class="text-[11px] text-emerald-900/70 mt-1.5">Left Pan <span class="math-expr font-bold">=</span> Right Pan</p>
+              </button>
+
+              <!-- Skill 2: Inverse Rules -->
+              <button type="button" onclick="switchTab('notes')" class="group text-left p-4 rounded-2xl bg-sky-50/90 hover:bg-sky-100/80 border border-sky-100 transition-all cursor-pointer">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="w-10 h-10 rounded-xl bg-skyquest-600 text-white flex items-center justify-center text-lg shadow-2xs">
+                    🔄
+                  </div>
+                  <span class="text-skyquest-600 font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <h4 class="font-extrabold text-sky-950 text-sm">Inverse Rules</h4>
+                <p class="text-xs font-semibold text-sky-700/80 mt-0.5">Aturan Pindah Ruas</p>
+                <p class="text-[11px] text-sky-900/70 mt-1.5"><span class="math-expr font-bold">+ &harr; −</span> and <span class="math-expr font-bold">× &harr; ÷</span></p>
+              </button>
+
+              <!-- Skill 3: 3-Step Solve -->
+              <button type="button" onclick="switchTab('examples')" class="group text-left p-4 rounded-2xl bg-purple-50/80 hover:bg-purple-100/80 border border-purple-100 transition-all cursor-pointer">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg shadow-2xs">
+                    🎯
+                  </div>
+                  <span class="text-purple-600 font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <h4 class="font-extrabold text-purple-950 text-sm">3-Step Solve</h4>
+                <p class="text-xs font-semibold text-purple-700/80 mt-0.5">Contoh Bertahap</p>
+                <p class="text-[11px] text-purple-900/70 mt-1.5">Isolate &rarr; Solve &rarr; Verify</p>
+              </button>
+
+              <!-- Skill 4: Verify Check -->
+              <button type="button" onclick="switchTab('challenge')" class="group text-left p-4 rounded-2xl bg-amber-50/80 hover:bg-amber-100/80 border border-amber-100 transition-all cursor-pointer">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg shadow-2xs">
+                    ✅
+                  </div>
+                  <span class="text-amber-600 font-bold text-sm group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <h4 class="font-extrabold text-amber-950 text-sm">PLSV Arena</h4>
+                <p class="text-xs font-semibold text-amber-700/80 mt-0.5">5 Misi Tantangan</p>
+                <p class="text-[11px] text-amber-900/70 mt-1.5">70% Core + 30% Level Up</p>
+              </button>
+            </div>
+          </div>
+
+          <!-- 5-Phase RPM Lesson Timeline (Tuesday 2 JP = 80 Minutes) -->
+          <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-extrabold text-slate-800 text-base">RPM Deep Learning Timeline (2 JP = 80 Mins)</h3>
+                <p class="text-xs text-slate-500">Alur pembelajaran bermakna Grade 7 bersama Mr. Taqwa</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-skyquest-50 text-skyquest-700 text-xs font-extrabold">Supervision Ready</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+              <div class="p-3 rounded-2xl bg-sky-50 border border-sky-100">
+                <span class="inline-block px-2 py-0.5 rounded-md bg-skyquest-600 text-white text-[10px] font-extrabold mb-1.5">10 Mins</span>
+                <p class="text-xs font-extrabold text-slate-800">1. Apperception</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Monday Callback (Meaningful)</p>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-indigo-50 border border-indigo-100">
+                <span class="inline-block px-2 py-0.5 rounded-md bg-indigo-600 text-white text-[10px] font-extrabold mb-1.5">15 Mins</span>
+                <p class="text-xs font-extrabold text-slate-800">2. Memahami: Notes</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Syarat PLSV &amp; Pindah Ruas</p>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
+                <span class="inline-block px-2 py-0.5 rounded-md bg-emerald-600 text-white text-[10px] font-extrabold mb-1.5">15 Mins</span>
+                <p class="text-xs font-extrabold text-slate-800">3. Apple Scale &amp; Ex</p>
+                <p class="text-[11px] text-slate-600 mt-0.5">Simulasi Timbangan + Contoh</p>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200">
+                <span class="inline-block px-2 py-0.5 rounded-md bg-amber-500 text-white text-[10px] font-extrabold mb-1.5">30 Mins</span>
+                <p class="text-xs font-extrabold text-slate-800">4. Mengaplikasikan</p>
+                <p class="text-[11px] text-slate-600 mt-0.5">5 Quests PLSV Arena</p>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-800 text-white">
+                <span class="inline-block px-2 py-0.5 rounded-md bg-sky-400 text-slate-950 text-[10px] font-extrabold mb-1.5">10 Mins</span>
+                <p class="text-xs font-extrabold">5. Merefleksikan</p>
+                <p class="text-[11px] text-slate-300 mt-0.5">Refleksi &amp; Asesmen</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             TAB 2: INTERACTIVE APPLE BALANCE SCALE LAB (Simulasi Timbangan)
+             ================================================================= -->
+        <section id="tab-balance" class="tab-panel hidden space-y-5">
+
+          <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-card border border-slate-100">
+            <!-- Header & Scenario Presets -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold mb-1">
+                  <span>⚖️</span>
+                  <span>Interactive Simulation • Timbangan Apel &amp; Kotak Misteri</span>
+                </span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+                  The Apple Balance Scale (Konsep Keseimbangan PLSV)
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Every <strong>Mystery Box (<span class="math-expr font-bold text-amber-700">x</span>)</strong> holds a secret number of <strong>Apples (<span class="math-expr font-bold text-rose-600">1</span>)</strong>. Keep both pans level to discover <span class="math-expr font-bold">x</span>!
+                </p>
+              </div>
+
+              <!-- Reveal Secret Box Weight Toggle -->
+              <button type="button" onclick="toggleScaleReveal()" id="scale-reveal-btn" class="px-4 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-200 transition-all cursor-pointer">
+                👀 Peek Secret x
+              </button>
+            </div>
+
+            <!-- Preset Equation Selector Pills -->
+            <div class="flex flex-wrap items-center gap-2 mb-4 pb-4 border-b border-slate-100">
+              <span class="text-xs font-extrabold text-slate-400 mr-1">Presets:</span>
+              <button type="button" onclick="loadScalePreset(1)" data-preset-btn="1" class="scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-extrabold bg-skyquest-600 text-white transition-all cursor-pointer">
+                Mission 1: 2x + 3 = 11
+              </button>
+              <button type="button" onclick="loadScalePreset(2)" data-preset-btn="2" class="scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all cursor-pointer">
+                Mission 2: 3x + 2 = 14
+              </button>
+              <button type="button" onclick="loadScalePreset(3)" data-preset-btn="3" class="scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all cursor-pointer">
+                Mission 3: 2x + 1 = x + 5
+              </button>
+              <button type="button" onclick="loadScalePreset(4)" data-preset-btn="4" class="scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition-all cursor-pointer">
+                🎲 Random New Box
+              </button>
+            </div>
+
+            <!-- Live Equation & Balance Status Readout -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center mb-4">
+              <!-- Left Pan Expression -->
+              <div class="p-3 rounded-2xl bg-sky-50/90 border border-sky-200/80 text-center">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-skyquest-600">Left Pan (Ruas Kiri)</span>
+                <div id="scale-left-expr" class="math-expr text-lg sm:text-xl font-extrabold text-slate-800 mt-0.5">2x + 3</div>
+              </div>
+
+              <!-- Center Status Badge -->
+              <div id="scale-status-card" class="p-3 rounded-2xl bg-emerald-50 border-2 border-emerald-400 text-center transition-all">
+                <div id="scale-status-symbol" class="math-expr text-xl sm:text-2xl font-extrabold text-emerald-700">=</div>
+                <div id="scale-status-text" class="text-xs font-extrabold text-emerald-800 mt-0.5">⚖️ BALANCED! (Seimbang)</div>
+              </div>
+
+              <!-- Right Pan Expression -->
+              <div class="p-3 rounded-2xl bg-rose-50/80 border border-rose-200/80 text-center">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-600">Right Pan (Ruas Kanan)</span>
+                <div id="scale-right-expr" class="math-expr text-lg sm:text-xl font-extrabold text-slate-800 mt-0.5">11</div>
+              </div>
+            </div>
+
+            <!-- Secret Value Banner (Shown when Peek is clicked or when solved 1x = k) -->
+            <div id="scale-secret-banner" class="hidden mb-4 p-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-center shadow-xs animate-pop">
+              <p id="scale-secret-text" class="text-xs sm:text-sm font-extrabold">
+                🎉 Solved! 1 Mystery Box (x) = 4 Apples!
+              </p>
+            </div>
+
+            <!-- INTERACTIVE SVG BALANCE SCALE VISUALIZER -->
+            <div class="rounded-3xl bg-gradient-to-b from-sky-50/80 via-white to-slate-100/90 border border-slate-200/80 p-3 sm:p-4 overflow-hidden">
+              <svg id="balance-scale-svg" viewBox="0 0 520 275" class="w-full h-auto max-h-[340px] mx-auto select-none" aria-label="Interactive Apple Balance Scale">
+                <defs>
+                  <linearGradient id="standGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#334155"/>
+                    <stop offset="50%" stop-color="#64748B"/>
+                    <stop offset="100%" stop-color="#1E293B"/>
+                  </linearGradient>
+                  <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#0284C7"/>
+                    <stop offset="100%" stop-color="#0369A1"/>
+                  </linearGradient>
+                  <linearGradient id="panGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#FBBF24"/>
+                    <stop offset="100%" stop-color="#D97706"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- Base & Center Pillar -->
+                <rect x="175" y="246" width="170" height="16" rx="8" fill="url(#standGrad)"/>
+                <rect x="200" y="236" width="120" height="12" rx="6" fill="#475569"/>
+                <rect x="252" y="96" width="16" height="142" rx="6" fill="url(#standGrad)"/>
+
+                <!-- Balance Indicator Needle Arc -->
+                <path d="M232 82 Q260 66 288 82" stroke="#CBD5E1" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <line x1="260" y1="68" x2="260" y2="79" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Rotating Beam & Needle -->
+                <g id="scale-beam-group" class="scale-beam">
+                  <!-- Top Pointer Needle -->
+                  <polygon points="260,72 255,96 265,96" fill="#F59E0B"/>
+                  <!-- Horizontal Beam -->
+                  <rect x="95" y="106" width="330" height="12" rx="6" fill="url(#beamGrad)"/>
+                  <!-- End Caps -->
+                  <circle cx="105" cy="112" r="7" fill="#FBBF24" stroke="#0369A1" stroke-width="2"/>
+                  <circle cx="415" cy="112" r="7" fill="#FBBF24" stroke="#0369A1" stroke-width="2"/>
+                </g>
+
+                <!-- Center Pivot Hub -->
+                <circle cx="260" cy="112" r="14" fill="#1E293B" stroke="#FBBF24" stroke-width="3"/>
+                <circle cx="260" cy="112" r="5" fill="#FBBF24"/>
+
+                <!-- LEFT PAN GROUP (Translates vertically with beam tilt) -->
+                <g id="scale-left-pan-group" class="scale-pan-group">
+                  <!-- Chains -->
+                  <line x1="105" y1="112" x2="48" y2="186" stroke="#94A3B8" stroke-width="2.2"/>
+                  <line x1="105" y1="112" x2="162" y2="186" stroke="#94A3B8" stroke-width="2.2"/>
+                  <!-- Dynamic Items Container (Boxes & Apples) -->
+                  <g id="scale-left-items"></g>
+                  <!-- Pan Dish -->
+                  <path d="M36 186 H174 L162 200 H48 Z" fill="url(#panGrad)"/>
+                  <rect x="34" y="183" width="142" height="5" rx="2.5" fill="#FDE68A"/>
+                </g>
+
+                <!-- RIGHT PAN GROUP (Translates vertically with beam tilt) -->
+                <g id="scale-right-pan-group" class="scale-pan-group">
+                  <!-- Chains -->
+                  <line x1="415" y1="112" x2="358" y2="186" stroke="#94A3B8" stroke-width="2.2"/>
+                  <line x1="415" y1="112" x2="472" y2="186" stroke="#94A3B8" stroke-width="2.2"/>
+                  <!-- Dynamic Items Container (Boxes & Apples) -->
+                  <g id="scale-right-items"></g>
+                  <!-- Pan Dish -->
+                  <path d="M346 186 H484 L472 200 H358 Z" fill="url(#panGrad)"/>
+                  <rect x="344" y="183" width="142" height="5" rx="2.5" fill="#FDE68A"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- BALANCED OPERATIONS BAR (Golden Rule of PLSV: Do the same to BOTH sides!) -->
+            <div class="mt-4 p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-sky-50 to-emerald-50 border border-emerald-200/80">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                <span class="text-xs font-extrabold text-emerald-900 flex items-center gap-1.5">
+                  <span>✨</span>
+                  <span>Golden Rule Actions — Apply to BOTH Sides Equally! (Adil Kiri &amp; Kanan)</span>
+                </span>
+                <span class="text-[11px] font-semibold text-emerald-700">Keeps the scale balanced!</span>
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <button type="button" onclick="applyBothSides('removeApple')" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-extrabold shadow-2xs transition-all cursor-pointer">
+                  🍎 −1 Apple Both Sides
+                </button>
+                <button type="button" onclick="applyBothSides('addApple')" class="px-3.5 py-2 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 text-xs font-extrabold transition-all cursor-pointer">
+                  🍎 +1 Apple Both Sides
+                </button>
+                <button type="button" onclick="applyBothSides('removeBox')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-extrabold shadow-2xs transition-all cursor-pointer">
+                  📦 −1 Box (x) Both Sides
+                </button>
+                <button type="button" onclick="applyBothSides('divideBoxes')" class="px-3.5 py-2 rounded-xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs font-extrabold shadow-2xs transition-all cursor-pointer">
+                  ➗ Divide Both Sides by Boxes
+                </button>
+              </div>
+            </div>
+
+            <!-- INDIVIDUAL PAN CONTROLS (Left Pan vs Right Pan) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-4">
+              <!-- Left Pan Controls -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                <p class="text-xs font-extrabold text-skyquest-800 mb-2">Left Pan Controls (Ruas Kiri)</p>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="modifyPan('left', 'box', 1)" class="px-2.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-extrabold transition-colors cursor-pointer">+1 📦 Box</button>
+                  <button type="button" onclick="modifyPan('left', 'box', -1)" class="px-2.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer">−1 📦 Box</button>
+                  <button type="button" onclick="modifyPan('left', 'apple', 1)" class="px-2.5 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 text-xs font-extrabold transition-colors cursor-pointer">+1 🍎 Apple</button>
+                  <button type="button" onclick="modifyPan('left', 'apple', -1)" class="px-2.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer">−1 🍎 Apple</button>
+                </div>
+              </div>
+
+              <!-- Right Pan Controls -->
+              <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                <p class="text-xs font-extrabold text-rose-800 mb-2">Right Pan Controls (Ruas Kanan)</p>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="modifyPan('right', 'box', 1)" class="px-2.5 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-extrabold transition-colors cursor-pointer">+1 📦 Box</button>
+                  <button type="button" onclick="modifyPan('right', 'box', -1)" class="px-2.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer">−1 📦 Box</button>
+                  <button type="button" onclick="modifyPan('right', 'apple', 1)" class="px-2.5 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 text-xs font-extrabold transition-colors cursor-pointer">+1 🍎 Apple</button>
+                  <button type="button" onclick="modifyPan('right', 'apple', -1)" class="px-2.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold transition-colors cursor-pointer">−1 🍎 Apple</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 flex justify-end">
+              <button type="button" onclick="switchTab('notes')" class="px-5 py-2.5 rounded-2xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all cursor-pointer">
+                Next: PLSV Core Board Notes →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             TAB 3: CORE NOTES VIEW (Materi Inti PLSV — Board Notes)
+             ================================================================= -->
+        <section id="tab-notes" class="tab-panel hidden space-y-5">
+
+          <!-- Notebook / Whiteboard Card -->
+          <div class="bg-white rounded-3xl p-5 sm:p-7 shadow-card border border-slate-100 notebook-surface">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b-2 border-skyquest-100">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-skyquest-100 text-skyquest-800 text-xs font-extrabold mb-1">
+                  <span>✍️</span>
+                  <span>Whiteboard Notes • Catatan Buku Tulis</span>
+                </span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+                  Linear Equations in One Variable (PLSV)
+                </h2>
+              </div>
+
+              <button type="button" onclick="copyBoardNotes()" class="px-4 py-2.5 rounded-2xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-2 cursor-pointer">
+                <span>📋</span>
+                <span>Copy Board Notes</span>
+              </button>
+            </div>
+
+            <!-- 3 Mandatory Requirements of PLSV -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-skyquest-50/95 border border-skyquest-200/80 mb-5">
+              <h3 class="font-extrabold text-skyquest-950 text-sm sm:text-base mb-2.5">
+                📌 3 Wajib Syarat PLSV (3 Criteria of a Linear Equation in One Variable):
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs sm:text-sm">
+                <div class="p-3 rounded-xl bg-white border border-skyquest-200/70">
+                  <span class="font-extrabold text-skyquest-700">1. Equal Sign (=)</span>
+                  <p class="text-slate-600 mt-0.5">Menggunakan tanda sama dengan (<span class="math-expr font-bold">=</span>), bukan &lt; atau &gt;.</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-skyquest-200/70">
+                  <span class="font-extrabold text-skyquest-700">2. One Variable</span>
+                  <p class="text-slate-600 mt-0.5">Hanya memiliki <strong>1 jenis huruf</strong> variabel (misal <span class="math-expr font-bold">x</span> saja).</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-skyquest-200/70">
+                  <span class="font-extrabold text-skyquest-700">3. Power of 1</span>
+                  <p class="text-slate-600 mt-0.5">Pangkat tertinggi variabelnya adalah <strong>1</strong> (bukan <span class="math-expr font-bold">x²</span>).</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inverse / Transpose Rules Grid -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/80 mb-5">
+              <h3 class="font-extrabold text-amber-950 text-sm sm:text-base mb-2">
+                ⚖️ Balance &amp; Transpose Rules (Aturan Pindah Ruas — Kiri &harr; Kanan):
+              </h3>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center math-expr text-xs sm:text-sm font-extrabold">
+                <div class="p-2.5 rounded-xl bg-white border border-amber-200 text-emerald-700">+ &harr; −</div>
+                <div class="p-2.5 rounded-xl bg-white border border-amber-200 text-rose-700">− &harr; +</div>
+                <div class="p-2.5 rounded-xl bg-white border border-amber-200 text-skyquest-700">× &harr; ÷</div>
+                <div class="p-2.5 rounded-xl bg-white border border-amber-200 text-purple-700">÷ &harr; ×</div>
+              </div>
+            </div>
+
+            <!-- 3-Step PLSV Strategy -->
+            <div class="space-y-3.5">
+              <div class="p-4 rounded-2xl bg-white/95 border-l-4 border-l-skyquest-600 border border-slate-200/80 shadow-2xs">
+                <div class="flex items-center gap-3 mb-1">
+                  <span class="w-7 h-7 rounded-lg bg-skyquest-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">1</span>
+                  <h4 class="font-extrabold text-slate-800 text-sm sm:text-base">Step 1 — Isolate (Kelompokkan Variabel &amp; Konstanta)</h4>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 pl-10">
+                  Kumpulkan suku bervariabel di ruas kiri, dan angka konstanta di ruas kanan (ingat tanda berubah saat menyeberangi <span class="math-expr font-bold">=</span>).
+                </p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-white/95 border-l-4 border-l-indigo-600 border border-slate-200/80 shadow-2xs">
+                <div class="flex items-center gap-3 mb-1">
+                  <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">2</span>
+                  <h4 class="font-extrabold text-slate-800 text-sm sm:text-base">Step 2 — Solve (Hitung Nilai 1 Variabel)</h4>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 pl-10">
+                  Bagi kedua ruas dengan koefisien variabel hingga tersisa 1 variabel utuh (<span class="math-expr font-bold text-indigo-700">x = ...</span>).
+                </p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-white/95 border-l-4 border-l-emerald-600 border border-slate-200/80 shadow-2xs">
+                <div class="flex items-center gap-3 mb-1">
+                  <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">3</span>
+                  <h4 class="font-extrabold text-slate-800 text-sm sm:text-base">Step 3 — Verify (Cek Substitusi Monday Skill!)</h4>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 pl-10">
+                  Masukkan kembali nilai variabel ke persamaan awal untuk memastikan <strong>Ruas Kiri = Ruas Kanan</strong>!
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+              <button type="button" onclick="switchTab('examples')" class="px-5 py-2.5 rounded-2xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all cursor-pointer">
+                Next: Guided Examples →
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Interactive PLSV Spotter (Is it PLSV?) -->
+          <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-card border border-slate-100">
+            <div class="mb-3.5">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-skyquest-600">Quick Concept Check</span>
+              <h3 class="text-lg font-extrabold text-slate-800">PLSV Spotter — Click a card to check if it is PLSV!</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="plsv-spotter-grid">
+              <button type="button" onclick="revealSpotter(0)" id="spotter-card-0" class="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-center transition-all cursor-pointer">
+                <div class="math-expr text-lg font-extrabold text-slate-800">3x + 4 = 40</div>
+                <p id="spotter-msg-0" class="text-xs font-bold text-skyquest-600 mt-1.5">Tap to check &rarr;</p>
+              </button>
+
+              <button type="button" onclick="revealSpotter(1)" id="spotter-card-1" class="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-center transition-all cursor-pointer">
+                <div class="math-expr text-lg font-extrabold text-slate-800">x² + 5 = 14</div>
+                <p id="spotter-msg-1" class="text-xs font-bold text-skyquest-600 mt-1.5">Tap to check &rarr;</p>
+              </button>
+
+              <button type="button" onclick="revealSpotter(2)" id="spotter-card-2" class="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-center transition-all cursor-pointer">
+                <div class="math-expr text-lg font-extrabold text-slate-800">2x + 3y = 12</div>
+                <p id="spotter-msg-2" class="text-xs font-bold text-skyquest-600 mt-1.5">Tap to check &rarr;</p>
+              </button>
+
+              <button type="button" onclick="revealSpotter(3)" id="spotter-card-3" class="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-center transition-all cursor-pointer">
+                <div class="math-expr text-lg font-extrabold text-slate-800">4p − 5 = 19</div>
+                <p id="spotter-msg-3" class="text-xs font-bold text-skyquest-600 mt-1.5">Tap to check &rarr;</p>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             TAB 4: GUIDED EXAMPLES VIEW (Step-by-Step Reveal)
+             ================================================================= -->
+        <section id="tab-examples" class="tab-panel hidden space-y-5">
+          <div class="bg-white rounded-3xl p-5 sm:p-7 shadow-card border border-slate-100">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-skyquest-600">Diskusi Papan Tulis Interaktif</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">Contoh Soal PLSV (Buka Bertahap)</h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Pancing jawaban siswa Grade 7 secara lisan terlebih dahulu, lalu buka tiap tahap di proyektor!</p>
+              </div>
+            </div>
+
+            <!-- Interactive Switcher Tabs -->
+            <div class="flex flex-wrap gap-2.5 mb-5">
+              <button type="button" onclick="selectExample(1)" id="example-switch-1" class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold bg-skyquest-600 text-white shadow-xs transition-all cursor-pointer">
+                Contoh Soal 1: 3x + 4 = 40 (Kasus Spidol Alya)
+              </button>
+              <button type="button" onclick="selectExample(2)" id="example-switch-2" class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all cursor-pointer">
+                Contoh Soal 2: 4p − 5 = 19 (Operasi Pengurangan)
+              </button>
+            </div>
+
+            <!-- Dynamic Example Display Card -->
+            <div id="example-display-box" class="rounded-3xl bg-slate-50 border border-slate-200/80 p-5 sm:p-6">
+              <!-- Populated dynamically by JS -->
+            </div>
+
+            <div class="mt-6 flex items-center justify-between flex-wrap gap-3">
+              <button type="button" onclick="switchTab('notes')" class="px-4 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold transition-all cursor-pointer">
+                ← Back to Core Notes
+              </button>
+              <button type="button" onclick="switchTab('challenge')" class="px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-extrabold shadow-xs transition-all cursor-pointer">
+                Enter PLSV Challenge Arena! 🏆 →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             TAB 5: CHALLENGE ARENA VIEW (5 Interactive PLSV Quests + Reflection)
+             ================================================================= -->
+        <section id="tab-challenge" class="tab-panel hidden space-y-5">
+
+          <!-- Mr. Taqwa's Golden Rule Banner -->
+          <div class="rounded-3xl bg-gradient-to-r from-amber-100 via-amber-50 to-orange-100 border border-amber-200 p-5 shadow-soft flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl shrink-0 shadow-xs">
+              🙌
+            </div>
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-900 text-[11px] font-extrabold uppercase tracking-wider mb-1">
+                Aturan Main Mr. Taqwa • Joyful &amp; Mindful Learning
+              </span>
+              <h2 class="text-base sm:text-lg font-extrabold text-amber-950 leading-snug">
+                Ini adalah CHALLENGE, bukan ulangan! Kalian BOLEH berdiskusi dengan teman sebangku &amp; angkat tangan bertanya kepada Mr. Taqwa! 🙌
+              </h2>
+              <p class="text-xs sm:text-sm text-amber-900/80 mt-1">
+                Selesaikan 5 soal PLSV (+50 💎 Gems per soal). Soal 1–3 melatih konsep dasar PLSV (70%), sedangkan Soal 4–5 menggabungkan Suku Sejenis &amp; Sifat Distributif (30%)!
+              </p>
+            </div>
+          </div>
+
+          <!-- Filter & Progress Header -->
+          <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-card border border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" onclick="filterChallenges('all')" data-filter-btn="all" class="challenge-filter-btn px-3.5 py-2 rounded-xl text-xs font-extrabold bg-skyquest-600 text-white transition-all cursor-pointer">
+                Semua 5 Soal
+              </button>
+              <button type="button" onclick="filterChallenges('core')" data-filter-btn="core" class="challenge-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all cursor-pointer">
+                Dasar 70% (Soal 1–3)
+              </button>
+              <button type="button" onclick="filterChallenges('levelup')" data-filter-btn="levelup" class="challenge-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all cursor-pointer">
+                Pengayaan 30% (Soal 4–5)
+              </button>
+            </div>
+
+            <div class="text-xs font-extrabold text-slate-600">
+              Selesai: <span id="arena-solved-count" class="text-skyquest-600">0</span> / 5 Soal
+            </div>
+          </div>
+
+          <!-- 5 Interactive Challenge Cards Container -->
+          <div id="challenge-cards-container" class="space-y-5">
+            <!-- Rendered by JavaScript -->
+          </div>
+
+          <!-- CLOSING REFLECTION STAGE & SPREADSHEET SUBMISSION (RPM Tahap Merefleksikan) -->
+          <div class="rounded-3xl bg-gradient-to-br from-slate-900 via-skyquest-900 to-indigo-950 text-white p-6 sm:p-7 shadow-lg space-y-5">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-sky-300 text-xs font-extrabold mb-2.5">
+                <span>🪞</span>
+                <span>RPM Stage 3: Merefleksikan (Final 10 Minutes)</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold">Refleksi Akhir &amp; Kirim Hasil ke Mr. Taqwa</h3>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                Isi refleksi perasaanmu hari ini dan pesan untuk Mr. Taqwa, lalu kirim seluruh jawaban Challenge-mu ke Spreadsheet!
+              </p>
+            </div>
+
+            <!-- Interactive Student Reflection Form -->
+            <div class="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/15 space-y-4">
+              <div>
+                <label class="block text-xs sm:text-sm font-extrabold text-amber-300 mb-2">
+                  1. Bagaimana perasaanmu belajar PLSV hari ini? (Pilih satu)
+                </label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="student-mood-grid">
+                  <button type="button" onclick="selectStudentMood('😄 Senang & Paham Banget!')" data-mood="😄 Senang & Paham Banget!" class="mood-choice-btn p-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition-all cursor-pointer">
+                    <div class="text-xl mb-1">😄</div>
+                    <div class="text-xs font-extrabold text-white">Senang &amp; Paham Banget!</div>
+                  </button>
+                  <button type="button" onclick="selectStudentMood('🤔 Tertantang & Seru!')" data-mood="🤔 Tertantang & Seru!" class="mood-choice-btn p-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition-all cursor-pointer">
+                    <div class="text-xl mb-1">🤔</div>
+                    <div class="text-xs font-extrabold text-white">Tertantang &amp; Seru!</div>
+                  </button>
+                  <button type="button" onclick="selectStudentMood('😅 Masih Agak Bingung')" data-mood="😅 Masih Agak Bingung" class="mood-choice-btn p-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition-all cursor-pointer">
+                    <div class="text-xl mb-1">😅</div>
+                    <div class="text-xs font-extrabold text-white">Masih Agak Bingung</div>
+                  </button>
+                  <button type="button" onclick="selectStudentMood('🙋‍♂️ Butuh Bimbingan Lagi')" data-mood="🙋‍♂️ Butuh Bimbingan Lagi" class="mood-choice-btn p-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-left transition-all cursor-pointer">
+                    <div class="text-xl mb-1">🙋‍♂️</div>
+                    <div class="text-xs font-extrabold text-white">Butuh Bimbingan Lagi</div>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label for="student-reflection-message" class="block text-xs sm:text-sm font-extrabold text-sky-200 mb-1.5">
+                  2. Pesan, Kesan, atau Bagian Tersulit untuk Mr. Taqwa:
+                </label>
+                <textarea id="student-reflection-message" rows="3"
+                          placeholder="Tulis perasaanmu, bagian yang paling seru, atau pesan untuk Mr. Taqwa di sini..."
+                          class="w-full px-4 py-3 rounded-2xl bg-slate-950/60 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+                <div class="text-xs text-sky-200">
+                  Pengirim: <strong id="reflection-sender-label" class="text-white">Guest (Grade 7)</strong>
+                </div>
+                <button type="button" onclick="submitStudentReflectionAndAnswers()" id="submit-student-sheet-btn" class="px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg transition-all cursor-pointer">
+                  📤 Kirim Jawaban &amp; Refleksi ke Spreadsheet
+                </button>
+              </div>
+
+              <div id="student-submit-status" class="hidden p-3.5 rounded-2xl text-xs sm:text-sm font-bold animate-pop"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             TAB 6: SUPERVISOR OBSERVATION & RATING PORTAL (id: supervisor)
+             ================================================================= -->
+        <section id="tab-supervisor" class="tab-panel hidden space-y-5">
+          <div class="bg-white rounded-3xl p-5 sm:p-7 shadow-card border-2 border-purple-200">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-100">
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-extrabold mb-1">
+                  <span>📋</span>
+                  <span>Lembar Supervisi Pembelajaran Mendalam (RPM)</span>
+                </span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+                  Catatan &amp; Rating Supervisi untuk Mr. Taqwa
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                  SMP Almazaya Islamic School • Materi: Persamaan Linear Satu Variabel (Grade 7)
+                </p>
+              </div>
+              <span class="px-3 py-1.5 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-extrabold">
+                ● Terhubung ke Spreadsheet
+              </span>
+            </div>
+
+            <form onsubmit="submitSupervisorFeedback(event)" class="space-y-5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="sup-name-input" class="block text-xs font-extrabold text-slate-700 mb-1">
+                    Nama / Jabatan Supervisor
+                  </label>
+                  <input type="text" id="sup-name-input" required placeholder="Contoh: Tim Kurikulum / Kepala Sekolah"
+                         class="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <div>
+                  <label for="sup-class-select" class="block text-xs font-extrabold text-slate-700 mb-1">
+                    Kelas yang Diamati
+                  </label>
+                  <select id="sup-class-select" class="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <option value="Grade 7.4" selected>Grade 7.4 (Jadwal Supervisi Selasa)</option>
+                    <option value="Grade 7.3">Grade 7.3</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Interactive Star Rating -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-purple-50/70 border border-purple-200/80">
+                <label class="block text-xs sm:text-sm font-extrabold text-purple-950 mb-2">
+                  Rating Pelaksanaan Pembelajaran (1 – 5 Bintang):
+                </label>
+                <div class="flex flex-wrap items-center gap-2" id="supervisor-star-group">
+                  <button type="button" onclick="setSupervisorRating(1)" data-star="1" class="sup-star-btn px-3.5 py-2 rounded-xl bg-white border border-purple-200 text-sm font-extrabold text-slate-600 hover:bg-amber-50 transition-all cursor-pointer">⭐ 1</button>
+                  <button type="button" onclick="setSupervisorRating(2)" data-star="2" class="sup-star-btn px-3.5 py-2 rounded-xl bg-white border border-purple-200 text-sm font-extrabold text-slate-600 hover:bg-amber-50 transition-all cursor-pointer">⭐⭐ 2</button>
+                  <button type="button" onclick="setSupervisorRating(3)" data-star="3" class="sup-star-btn px-3.5 py-2 rounded-xl bg-white border border-purple-200 text-sm font-extrabold text-slate-600 hover:bg-amber-50 transition-all cursor-pointer">⭐⭐⭐ 3</button>
+                  <button type="button" onclick="setSupervisorRating(4)" data-star="4" class="sup-star-btn px-3.5 py-2 rounded-xl bg-white border border-purple-200 text-sm font-extrabold text-slate-600 hover:bg-amber-50 transition-all cursor-pointer">⭐⭐⭐⭐ 4</button>
+                  <button type="button" onclick="setSupervisorRating(5)" data-star="5" class="sup-star-btn px-3.5 py-2 rounded-xl bg-amber-400 border border-amber-500 text-sm font-extrabold text-slate-950 shadow-2xs transition-all cursor-pointer">⭐⭐⭐⭐⭐ 5 (Sangat Baik)</button>
+                </div>
+                <p id="sup-rating-desc" class="text-xs font-bold text-purple-800 mt-2">
+                  Terpilih: 5 / 5 Bintang — Praktik Pembelajaran Mendalam (Mindful, Meaningful, Joyful &amp; Digital) sangat optimal.
+                </p>
+              </div>
+
+              <!-- Supervisor Suggestion Textarea -->
+              <div>
+                <label for="sup-suggestion-textarea" class="block text-xs sm:text-sm font-extrabold text-slate-700 mb-1.5">
+                  Saran, Masukan &amp; Catatan Apresiasi untuk Mr. Taqwa:
+                </label>
+                <textarea id="sup-suggestion-textarea" rows="5" required
+                          placeholder="Tuliskan saran pengembangan, catatan observasi kelas, atau masukan untuk Mr. Taqwa di sini..."
+                          class="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-slate-50 focus:bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <button type="button" onclick="switchTab('home')" class="px-4 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold cursor-pointer">
+                  ← Lihat Materi Mengajar
+                </button>
+                <button type="submit" id="submit-supervisor-btn" class="px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs sm:text-sm shadow-pill transition-all cursor-pointer">
+                  📤 Kirim Saran &amp; Rating ke Spreadsheet
+                </button>
+              </div>
+
+              <div id="supervisor-submit-status" class="hidden p-3.5 rounded-2xl text-xs sm:text-sm font-bold animate-pop"></div>
+            </form>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             TAB 7: STEALTH TEACHER LIVE MONITORING DASHBOARD (id: guru)
+             ================================================================= -->
+        <section id="tab-guru" class="tab-panel hidden space-y-5">
+          <!-- Header & Live Controls -->
+          <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-card border border-slate-100">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-100">
+              <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold mb-1">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                  <span>Live Classroom Radar • Mr. Taqwa</span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+                  Pantauan Real-Time Siswa &amp; Catatan Supervisi
+                </h2>
+                <p id="guru-last-sync" class="text-xs text-slate-500 mt-0.5">
+                  Menunggu sinkronisasi data dari Google Spreadsheet...
+                </p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <button type="button" onclick="toggleDashboardAutoRefresh()" id="guru-autorefresh-btn" class="px-3.5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-extrabold shadow-2xs transition-all cursor-pointer">
+                  🟢 Auto-Sync: ON (12d)
+                </button>
+                <button type="button" onclick="fetchLiveDashboardData(true)" id="guru-manual-refresh-btn" class="px-3.5 py-2 rounded-xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs font-extrabold shadow-2xs transition-all cursor-pointer">
+                  🔄 Refresh Sekarang
+                </button>
+              </div>
+            </div>
+
+            <!-- 3 Summary KPI Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div class="p-4 rounded-2xl bg-sky-50/90 border border-skyquest-200/80">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-skyquest-700">Siswa Sudah Mengirim</span>
+                <div id="guru-kpi-submitted" class="text-2xl font-extrabold text-slate-800 mt-1">0 / 23</div>
+                <p id="guru-kpi-subtext" class="text-xs text-slate-500 mt-0.5">Kelas aktif: Grade 7.4</p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-amber-50/90 border border-amber-200/80">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-800">Rata-Rata Skor Challenge</span>
+                <div id="guru-kpi-avgscore" class="text-2xl font-extrabold text-slate-800 mt-1">0.0 / 5</div>
+                <p class="text-xs text-slate-500 mt-0.5">Dari siswa yang sudah submit</p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-purple-50/90 border border-purple-200/80">
+                <span class="text-[11px] font-extrabold uppercase tracking-wider text-purple-800">Catatan Supervisor</span>
+                <div id="guru-kpi-supcount" class="text-2xl font-extrabold text-slate-800 mt-1">0 Masukan</div>
+                <p id="guru-kpi-suprating" class="text-xs text-purple-700 font-bold mt-0.5">Belum ada rating masuk</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Catatan & Rating Supervisor (Real-Time) -->
+          <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-card border border-purple-100">
+            <div class="flex items-center justify-between mb-3.5">
+              <h3 class="font-extrabold text-slate-800 text-base flex items-center gap-2">
+                <span>📋</span>
+                <span>Saran &amp; Rating dari Supervisor</span>
+              </h3>
+              <span class="text-xs font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-full">Tab: Catatan_Supervisi</span>
+            </div>
+            <div id="guru-supervisor-feed" class="space-y-3">
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 text-xs sm:text-sm text-slate-500 text-center">
+                Belum ada catatan dari Supervisor yang masuk.
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Daftar Progres Siswa, Jawaban Challenge & Refleksi -->
+          <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-card border border-slate-100">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div>
+                <h3 class="font-extrabold text-slate-800 text-base">Radar Kelas: Hasil Challenge &amp; Refleksi Siswa</h3>
+                <p class="text-xs text-slate-500">Klik nama siswa yang sudah mengirim untuk melihat detail jawaban Soal 1–5.</p>
+              </div>
+
+              <!-- Class & Status Filters -->
+              <div class="flex flex-wrap items-center gap-2">
+                <select id="guru-class-filter" onchange="renderLiveDashboard()" class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-extrabold text-slate-700 focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+                  <option value="7.4" selected>Grade 7.4 (23 Siswa)</option>
+                  <option value="7.3">Grade 7.3 (23 Siswa)</option>
+                </select>
+
+                <select id="guru-status-filter" onchange="renderLiveDashboard()" class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-extrabold text-slate-700 focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+                  <option value="all" selected>Semua Siswa (23)</option>
+                  <option value="submitted">Sudah Kirim ✅</option>
+                  <option value="pending">Belum Kirim / Perlu Bantuan ⏳</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-200/80">
+              <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr class="bg-slate-100/90 text-slate-700 font-extrabold border-b border-slate-200">
+                    <th class="py-3 px-3.5">No</th>
+                    <th class="py-3 px-3.5">Nama Siswa</th>
+                    <th class="py-3 px-3.5">Status / Skor</th>
+                    <th class="py-3 px-3.5">Perasaan Belajar</th>
+                    <th class="py-3 px-3.5">Pesan untuk Mr. Taqwa</th>
+                  </tr>
+                </thead>
+                <tbody id="guru-student-tbody" class="divide-y divide-slate-100">
+                  <!-- Populated dynamically by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ===================================================================
+           COLUMN 3: RIGHT WIDGET PANEL (Goal Ring, 80m Timer, Teacher Mode)
+           =================================================================== -->
+      <aside id="right-widget-panel" class="hidden lg:block space-y-4 lg:sticky lg:top-5">
+
+        <!-- Widget 1: Circular Daily Lesson Goal Progress Ring -->
+        <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-extrabold text-slate-800 text-base">Daily Lesson Goal</h3>
+            <span class="px-2.5 py-0.5 rounded-full bg-skyquest-50 text-skyquest-700 text-[11px] font-extrabold">Grade 7</span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <!-- SVG Circular Ring -->
+            <div class="relative w-24 h-24 shrink-0 flex items-center justify-center">
+              <svg class="w-24 h-24 -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="#E2E8F0" stroke-width="10" fill="none" />
+                <circle id="goal-ring-circle" cx="50" cy="50" r="40" stroke="#0284C7" stroke-width="10" fill="none"
+                        stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round"
+                        class="transition-all duration-500 ease-out" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span class="text-sm">⚖️</span>
+                <span id="goal-ring-count" class="text-sm font-extrabold text-slate-800 leading-tight">0 / 5</span>
+                <span class="text-[10px] font-bold text-slate-400">PLSV</span>
+              </div>
+            </div>
+
+            <div class="min-w-0">
+              <p id="goal-status-title" class="font-extrabold text-slate-800 text-sm">Keep going, Grade 7!</p>
+              <p id="goal-status-desc" class="text-xs text-slate-500 mt-1 leading-relaxed">
+                Solve all 5 PLSV quests to earn <strong>250 💎 Gems</strong> today.
+              </p>
+            </div>
+          </div>
+
+          <!-- 5 Quest Status Pills -->
+          <div class="grid grid-cols-5 gap-1.5 mt-4 pt-4 border-t border-slate-100 text-center">
+            <div id="quest-dot-1" class="flex flex-col items-center gap-1">
+              <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">1</div>
+              <span class="text-[10px] font-bold text-slate-400">Q1</span>
+            </div>
+            <div id="quest-dot-2" class="flex flex-col items-center gap-1">
+              <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">2</div>
+              <span class="text-[10px] font-bold text-slate-400">Q2</span>
+            </div>
+            <div id="quest-dot-3" class="flex flex-col items-center gap-1">
+              <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">3</div>
+              <span class="text-[10px] font-bold text-slate-400">Q3</span>
+            </div>
+            <div id="quest-dot-4" class="flex flex-col items-center gap-1">
+              <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">4</div>
+              <span class="text-[10px] font-bold text-amber-600">Q4★</span>
+            </div>
+            <div id="quest-dot-5" class="flex flex-col items-center gap-1">
+              <div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 font-extrabold text-xs flex items-center justify-center transition-all">5</div>
+              <span class="text-[10px] font-bold text-amber-600">Q5★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Widget 2: Mr. Taqwa's Teacher Mode (Show Answer Keys) -->
+        <div class="bg-white rounded-3xl p-4 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-10 h-10 rounded-2xl bg-skyquest-100 text-skyquest-700 flex items-center justify-center text-lg shrink-0">
+                👨‍🏫
+              </div>
+              <div class="min-w-0">
+                <p class="text-xs font-extrabold text-slate-800 truncate">Mr. Taqwa's Teacher Mode</p>
+                <p class="text-[11px] text-slate-500 truncate">Show PLSV Answer Keys</p>
+              </div>
+            </div>
+
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
+              <input type="checkbox" id="teacher-mode-checkbox" class="sr-only peer" onchange="toggleTeacherMode(this.checked)">
+              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-skyquest-600"></div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Widget 3: Interactive 80-Minute (2 JP) RPM Timer -->
+        <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-extrabold text-slate-800 text-sm flex items-center gap-1.5">
+              <span>⏱️</span>
+              <span>80-Minute (2 JP) RPM Timer</span>
+            </h3>
+            <span class="text-[11px] font-bold text-skyquest-600 bg-skyquest-50 px-2 py-0.5 rounded-md">2 JP</span>
+          </div>
+
+          <div class="rounded-2xl bg-slate-50 border border-slate-200/70 p-3.5 text-center mb-3">
+            <div id="class-timer-display" class="math-expr text-3xl font-extrabold text-slate-800 tracking-wider">
+              80:00
+            </div>
+            <p id="class-timer-subtitle" class="text-[11px] font-bold text-skyquest-600 mt-0.5">
+              Full 2 JP Supervision (80 Mins)
+            </p>
+
+            <div class="flex items-center justify-center gap-2 mt-3">
+              <button type="button" onclick="toggleClassTimer()" id="timer-start-pause-btn" class="px-4 py-1.5 rounded-xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs font-extrabold transition-colors cursor-pointer">
+                ▶ Start
+              </button>
+              <button type="button" onclick="resetClassTimer()" class="px-3.5 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition-colors cursor-pointer">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick RPM Phase Presets -->
+          <div class="flex flex-wrap gap-1.5 justify-center">
+            <button type="button" onclick="setClassTimerMinutes(80, 'Full 2 JP Supervision (80 Mins)')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-skyquest-100 text-slate-600 hover:text-skyquest-800 text-[11px] font-bold transition-colors cursor-pointer">80m</button>
+            <button type="button" onclick="setClassTimerMinutes(10, 'Phase 1: Apperception (10 Mins)')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-skyquest-100 text-slate-600 hover:text-skyquest-800 text-[11px] font-bold transition-colors cursor-pointer">10m</button>
+            <button type="button" onclick="setClassTimerMinutes(15, 'Phase 2 & 3: Memahami (15 Mins)')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-skyquest-100 text-slate-600 hover:text-skyquest-800 text-[11px] font-bold transition-colors cursor-pointer">15m</button>
+            <button type="button" onclick="setClassTimerMinutes(30, 'Phase 4: Mengaplikasikan (30 Mins)')" class="px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 text-[11px] font-extrabold transition-colors cursor-pointer">30m Arena</button>
+          </div>
+        </div>
+
+        <!-- Widget 4: Interactive 5-Step RPM Flow Checklist -->
+        <div class="bg-white rounded-3xl p-5 shadow-card border border-slate-100">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-extrabold text-slate-800 text-sm">RPM Supervision Checklist</h3>
+            <span id="checklist-progress-label" class="text-[11px] font-bold text-slate-400">0/5 Done</span>
+          </div>
+
+          <div class="space-y-2 text-xs" id="lesson-flow-checklist">
+            <label class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
+              <input type="checkbox" onchange="updateChecklistCount()" class="lesson-flow-cb w-4 h-4 rounded accent-skyquest-600">
+              <span class="font-semibold text-slate-700 flex-1">1. Monday Callback (3x+4=40)</span>
+              <span class="text-[10px] font-bold text-slate-400">10m</span>
+            </label>
+
+            <label class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
+              <input type="checkbox" onchange="updateChecklistCount()" class="lesson-flow-cb w-4 h-4 rounded accent-skyquest-600">
+              <span class="font-semibold text-slate-700 flex-1">2. Memahami: PLSV Notes</span>
+              <span class="text-[10px] font-bold text-slate-400">15m</span>
+            </label>
+
+            <label class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
+              <input type="checkbox" onchange="updateChecklistCount()" class="lesson-flow-cb w-4 h-4 rounded accent-skyquest-600">
+              <span class="font-semibold text-slate-700 flex-1">3. Apple Balance &amp; Examples</span>
+              <span class="text-[10px] font-bold text-slate-400">15m</span>
+            </label>
+
+            <label class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
+              <input type="checkbox" onchange="updateChecklistCount()" class="lesson-flow-cb w-4 h-4 rounded accent-skyquest-600">
+              <span class="font-semibold text-slate-700 flex-1">4. Mengaplikasikan: 5 Quests</span>
+              <span class="text-[10px] font-bold text-amber-600">30m</span>
+            </label>
+
+            <label class="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
+              <input type="checkbox" onchange="updateChecklistCount()" class="lesson-flow-cb w-4 h-4 rounded accent-skyquest-600">
+              <span class="font-semibold text-slate-700 flex-1">5. Merefleksikan &amp; Closing</span>
+              <span class="text-[10px] font-bold text-slate-400">10m</span>
+            </label>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MOBILE FIXED BOTTOM NAVIGATION BAR (< 1024px)
+       ===================================================================== -->
+  <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-1 py-1.5 flex items-center justify-around shadow-lg" aria-label="Mobile Navigation">
+    <button type="button" onclick="switchTab('home')" data-mobile-tab="home" class="mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-skyquest-600 bg-skyquest-50 transition-all cursor-pointer">
+      <span class="text-base leading-none">🏠</span>
+      <span class="text-[10px] font-extrabold mt-1">Home</span>
+    </button>
+
+    <button type="button" onclick="switchTab('balance')" data-mobile-tab="balance" class="mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-500 transition-all cursor-pointer">
+      <span class="text-base leading-none">⚖️</span>
+      <span class="text-[10px] font-bold mt-1">Scale</span>
+    </button>
+
+    <button type="button" onclick="switchTab('notes')" data-mobile-tab="notes" class="mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-500 transition-all cursor-pointer">
+      <span class="text-base leading-none">📖</span>
+      <span class="text-[10px] font-bold mt-1">Notes</span>
+    </button>
+
+    <button type="button" onclick="switchTab('examples')" data-mobile-tab="examples" class="mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-500 transition-all cursor-pointer">
+      <span class="text-base leading-none">💡</span>
+      <span class="text-[10px] font-bold mt-1">Examples</span>
+    </button>
+
+    <button type="button" onclick="switchTab('challenge')" data-mobile-tab="challenge" class="mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-500 transition-all cursor-pointer">
+      <span class="text-base leading-none">🏆</span>
+      <span class="text-[10px] font-bold mt-1">Arena</span>
+    </button>
+
+    <button type="button" onclick="switchTab('supervisor')" id="mobile-supervisor-btn" data-mobile-tab="supervisor" class="hidden mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-purple-600 transition-all cursor-pointer">
+      <span class="text-base leading-none">📋</span>
+      <span class="text-[10px] font-extrabold mt-1">Supervisi</span>
+    </button>
+
+    <button type="button" onclick="switchTab('guru')" id="mobile-guru-btn" data-mobile-tab="guru" class="hidden mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-emerald-700 transition-all cursor-pointer">
+      <span class="text-base leading-none">📡</span>
+      <span class="text-[10px] font-extrabold mt-1">Monitor</span>
+    </button>
+
+    <button type="button" onclick="switchTab('tools')" data-mobile-tab="tools" class="mobile-nav-btn flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-500 transition-all cursor-pointer">
+      <span class="text-base leading-none">⏱️</span>
+      <span class="text-[10px] font-bold mt-1">Timer</span>
+    </button>
+  </nav>
+
+  <!-- =====================================================================
+       JAVASCRIPT LOGIC (Self-Contained, Zero External Audio/Image URLs)
+       ===================================================================== -->
+  <script>
+    // ---------------------------------------------------------------------
+    // 0. CONFIGURATION: STUDENT ROSTER (7.3 & 7.4) & GOOGLE APPS SCRIPT URL
+    // ---------------------------------------------------------------------
+    const DEFAULT_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxs9qTYG8EOTzLAezqYTdj-mvQpa3MIcJaibHNOZTOM4RcrV1lDybLKErgEQeAOWSZN/exec";
+
+    const STRICT_ROSTER_MODE = true;
+
+    const STUDENT_ROSTER_BY_CLASS = {
+      "7.3": [
+        "Aqila Zahraa Khairunnisa",
+        "Athiya Adelia Nasywa",
+        "Dania Afifah",
+        "Fauzal Rohit Devanka Al Humaini",
+        "Gio Farrel Adria Putra",
+        "Gusti Sultan Prawira Rahman",
+        "Humaira Zivana Putri",
+        "Ibrahim Laudza'i Muadab",
+        "Izaz Hiroshi Zulkarnaen",
+        "Jovan Gunaidi",
+        "Kayla Khanza Azzahra",
+        "Khanza Nabilla Nur Resvatie",
+        "Khayla Thalita Zhafira",
+        "Kiara Putri Maharani",
+        "Kiasathina Aretha",
+        "Mira Nur Azizah",
+        "Muhammad Buzaidi",
+        "Muhammad Dizhwar Attarrahman",
+        "Nayla Putri",
+        "Nur Azisa J",
+        "Qaireen Mazaya Ahmad",
+        "Riri Azka Ramadhani",
+        "Vick Praditya Podutolo"
+      ],
+      "7.4": [
+        "Almira Nayla Putri",
+        "Andhara Kirana Ramadhania",
+        "Arfaizz Khalif Muttaqien",
+        "Arzetti Ulima Az Zahra",
+        "Gusti Alesha Lifia Azmi",
+        "Hashemi Fatih Athalla Fajrasa",
+        "Henry Gunawan Theja",
+        "Karima Fitri",
+        "Khalifaa Mutiara Imansyah",
+        "Marishya Anindya Putri Prayoga",
+        "Micayla Athaya Harun",
+        "Muhammad Farras Nurzuhdi",
+        "Muhammad Izzi Ulya Ramadhan T",
+        "Muhammad Jamesha Kamil",
+        "Muhammad Naufal Akbar",
+        "Muhammad Rafa Khairy",
+        "Namirra Az Zahra",
+        "Putri Vanessa",
+        "Qeesya Nayyara Athalia",
+        "Renesmee Vania Putri Setiawan",
+        "Sabil Fathurrahman",
+        "Tasya Khanza Madina",
+        "Yumna Fariha"
+      ]
+    };
+
+    const CLASS_PASSWORD = "amz";
+
+    // ---------------------------------------------------------------------
+    // 1. APPLICATION STATE
+    // ---------------------------------------------------------------------
+    const state = {
+      activeTab: 'home',
+      userRole: 'guest',        // 'student' | 'supervisor' | 'guest'
+      userName: 'Guest',
+      userClass: '7.4',
+      appsScriptUrl: DEFAULT_APPS_SCRIPT_URL,
+      studentMood: '',
+      supervisorRating: 5,
+      teacherMode: false,
+      projectorMode: false,
+      soundEnabled: true,
+      gems: 0,
+      solvedQuests: new Set(),
+      challengeFilter: 'all',
+      activeExampleId: 1,
+      exampleStepsRevealed: {
+        1: 0,
+        2: 0
+      },
+      // Interactive Apple Balance Scale State
+      scale: {
+        presetId: 1,
+        boxWeight: 4,     // Secret number of apples inside 1 Mystery Box (x)
+        leftBoxes: 2,     // Number of Mystery Boxes on Left Pan
+        leftApples: 3,    // Number of single Apples on Left Pan
+        rightBoxes: 0,    // Number of Mystery Boxes on Right Pan
+        rightApples: 11,  // Number of single Apples on Right Pan
+        revealSecret: false
+      },
+      // 80-Minute (2 JP) Timer State
+      timerTotalSeconds: 80 * 60,
+      timerRemainingSeconds: 80 * 60,
+      timerRunning: false,
+      timerIntervalId: null,
+      // Stealth Teacher Live Dashboard State
+      dashboard: {
+        students: [],
+        supervisions: [],
+        serverTime: '-',
+        autoRefresh: true,
+        intervalId: null,
+        expandedStudent: null
+      }
+    };
+
+    // ---------------------------------------------------------------------
+    // 2. LOGIN GATE & USER IDENTITY MANAGEMENT (Students, Supervisor, Guru)
+    // ---------------------------------------------------------------------
+    function populateRosterDatalist() {
+      const selectEl = document.getElementById('login-class-select');
+      const datalistEl = document.getElementById('student-roster-list');
+      if (!selectEl || !datalistEl) return;
+
+      const selectedClass = selectEl.value || '7.4';
+      const names = STUDENT_ROSTER_BY_CLASS[selectedClass] || [];
+      datalistEl.innerHTML = names.map(name => `<option value="${name}"></option>`).join('');
+    }
+
+    function openLoginModal() {
+      const modal = document.getElementById('login-gate-modal');
+      const errorBox = document.getElementById('login-error-box');
+      if (errorBox) errorBox.classList.add('hidden');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const classSelect = document.getElementById('login-class-select');
+      const idInput = document.getElementById('login-id-input');
+      const passInput = document.getElementById('login-pass-input');
+      const errorBox = document.getElementById('login-error-box');
+
+      const chosenClass = classSelect ? classSelect.value : '7.4';
+      const rawId = (idInput ? idInput.value : '').trim();
+      const rawPass = (passInput ? passInput.value : '').trim();
+
+      errorBox.classList.add('hidden');
+
+      if (!rawId) {
+        errorBox.textContent = '⚠️ Silakan masukkan Nama Lengkap atau ID terlebih dahulu.';
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      // Check Stealth Teacher Dashboard Login (id: guru, pass: admin)
+      if (rawId.toLowerCase() === 'guru' && rawPass === 'admin') {
+        state.userRole = 'guru';
+        state.userName = 'Mr. Taqwa';
+        state.userClass = chosenClass;
+
+        document.getElementById('sidebar-guru-btn')?.classList.remove('hidden');
+        document.getElementById('mobile-guru-btn')?.classList.remove('hidden');
+        document.getElementById('sidebar-supervisor-btn')?.classList.add('hidden');
+        document.getElementById('mobile-supervisor-btn')?.classList.add('hidden');
+
+        updateUserIdentityUI();
+        document.getElementById('login-gate-modal').classList.add('hidden');
+        playChime('success');
+        showToast('📡 Live Monitor Mr. Taqwa aktif!', 'success');
+        switchTab('guru');
+        fetchLiveDashboardData(true);
+        startDashboardAutoRefresh();
+        return;
+      }
+
+      if (rawPass !== CLASS_PASSWORD) {
+        playChime('error');
+        errorBox.textContent = '❌ Password salah! Gunakan password kelas yang diberikan Mr. Taqwa.';
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      // Check if Supervisor Login
+      if (rawId.toLowerCase() === 'supervisor') {
+        state.userRole = 'supervisor';
+        state.userName = 'Supervisor (Tim Kurikulum / Kepsek)';
+        state.userClass = 'Grade 7.4';
+
+        document.getElementById('sidebar-supervisor-btn')?.classList.remove('hidden');
+        document.getElementById('mobile-supervisor-btn')?.classList.remove('hidden');
+        document.getElementById('sidebar-guru-btn')?.classList.add('hidden');
+        document.getElementById('mobile-guru-btn')?.classList.add('hidden');
+
+        updateUserIdentityUI();
+        document.getElementById('login-gate-modal').classList.add('hidden');
+        playChime('success');
+        showToast('📋 Selamat datang, Supervisor! Lembar observasi siap diisi.', 'success');
+        switchTab('supervisor');
+        return;
+      }
+
+      // Validate Student Roster across Grade 7.3 & 7.4
+      const lowerInput = rawId.toLowerCase();
+      let matchedName = null;
+      let matchedClass = chosenClass;
+
+      for (const cls of ['7.4', '7.3']) {
+        const found = (STUDENT_ROSTER_BY_CLASS[cls] || []).find(
+          name => name.toLowerCase() === lowerInput
+        );
+        if (found) {
+          matchedName = found;
+          matchedClass = cls;
+          break;
+        }
+      }
+
+      if (STRICT_ROSTER_MODE && !matchedName) {
+        playChime('error');
+        errorBox.textContent = '⚠️ Nama tidak ditemukan di daftar siswa Grade 7.3 / 7.4. Pilih nama lengkapmu dari daftar saran!';
+        errorBox.classList.remove('hidden');
+        return;
+      }
+
+      state.userRole = 'student';
+      state.userName = matchedName || rawId;
+      state.userClass = matchedClass;
+
+      document.getElementById('sidebar-supervisor-btn')?.classList.add('hidden');
+      document.getElementById('mobile-supervisor-btn')?.classList.add('hidden');
+      document.getElementById('sidebar-guru-btn')?.classList.add('hidden');
+      document.getElementById('mobile-guru-btn')?.classList.add('hidden');
+
+      updateUserIdentityUI();
+      document.getElementById('login-gate-modal').classList.add('hidden');
+      playChime('success');
+      showToast(`👋 Assalamu'alaikum, ${state.userName} (Grade ${state.userClass})!`, 'success');
+    }
+
+    function updateUserIdentityUI() {
+      const headerBadge = document.getElementById('header-active-user-badge');
+      const sidebarName = document.getElementById('sidebar-user-name');
+      const sidebarRole = document.getElementById('sidebar-user-role');
+      const heroGreeting = document.getElementById('hero-student-greeting');
+      const reflectionSender = document.getElementById('reflection-sender-label');
+
+      if (state.userRole === 'guru') {
+        if (headerBadge) {
+          headerBadge.textContent = '📡 Mr. Taqwa • Live Monitor';
+          headerBadge.className = 'cursor-pointer px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300';
+        }
+        if (sidebarName) sidebarName.textContent = 'Mr. Taqwa';
+        if (sidebarRole) sidebarRole.textContent = 'Live Dashboard • Grade 7';
+        if (heroGreeting) heroGreeting.textContent = 'Mr. Taqwa!';
+      } else if (state.userRole === 'supervisor') {
+        if (headerBadge) {
+          headerBadge.textContent = '📋 Supervisor • Grade 7';
+          headerBadge.className = 'cursor-pointer px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-purple-100 text-purple-800 border border-purple-200';
+        }
+        if (sidebarName) sidebarName.textContent = 'Supervisor';
+        if (sidebarRole) sidebarRole.textContent = 'Observasi Grade 7';
+        if (heroGreeting) heroGreeting.textContent = 'Supervisor!';
+      } else {
+        const shortFirst = state.userName.split(' ')[0] || 'Grade 7';
+        if (headerBadge) {
+          headerBadge.textContent = `👤 ${state.userName} • Grade ${state.userClass}`;
+          headerBadge.className = 'cursor-pointer px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200';
+        }
+        if (sidebarName) sidebarName.textContent = state.userName;
+        if (sidebarRole) sidebarRole.textContent = `Grade ${state.userClass} • SMP Almazaya`;
+        if (heroGreeting) heroGreeting.textContent = `${shortFirst}!`;
+        if (reflectionSender) reflectionSender.textContent = `${state.userName} (Grade ${state.userClass})`;
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 3. CURRICULUM DATA: GUIDED EXAMPLES (BAHASA INDONESIA)
+    // ---------------------------------------------------------------------
+    const guidedExamples = {
+      1: {
+        title: "Contoh Soal 1 — Kasus Spidol Alya (Kilas Balik Hari Senin)",
+        badge: "Penjumlahan (+)",
+        badgeStyle: "bg-skyquest-100 text-skyquest-800",
+        story: `Kemarin kita tahu bentuk aljabar spidol Alya adalah <span class="math-expr font-bold text-skyquest-700">3x + 4</span>. Hari ini diketahui total seluruh spidol yang dibeli Alya adalah <strong>40 buah</strong>.<br><strong>Persamaan PLSV:</strong> <span class="math-expr font-extrabold text-slate-900 bg-white px-2.5 py-0.5 rounded-lg border border-slate-200">3x + 4 = 40</span>. Tentukan isi 1 kotak spidol (<span class="math-expr font-bold text-skyquest-700">x</span>)!`,
+        steps: [
+          {
+            stepNum: 1,
+            heading: "Tahap 1 — Kelompokkan (Isolate Variabel & Konstanta)",
+            body: `Pindahkan <span class="math-expr font-bold text-rose-600">+4</span> ke ruas kanan menjadi <span class="math-expr font-bold text-emerald-700">−4</span>:<br><span class="math-expr font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg inline-block mt-1">3x = 40 − 4 &rarr; 3x = 36</span>`
+          },
+          {
+            stepNum: 2,
+            heading: "Tahap 2 — Hitung Nilai x (Solve)",
+            body: `Karena <span class="math-expr font-bold">3x</span> berarti <span class="math-expr font-bold">3 × x</span>, bagi kedua ruas dengan 3:<br><span class="math-expr font-extrabold text-skyquest-800 bg-skyquest-50 px-2.5 py-1 rounded-lg inline-block mt-1">x = 36 ÷ 3 &rarr; x = 12</span>`
+          },
+          {
+            stepNum: 3,
+            heading: "Tahap 3 — Cek Substitusi (Verify Ilmu Hari Senin!)",
+            body: `Masukkan <span class="math-expr font-bold">x = 12</span> ke persamaan awal: <span class="math-expr font-bold">3(12) + 4 = 36 + 4 = 40</span> (<span class="text-emerald-700 font-extrabold">Cocok!</span>). Jadi isi 1 kotak spidol adalah <strong>12 buah</strong>.`
+          }
+        ]
+      },
+      2: {
+        title: "Contoh Soal 2 — Persamaan Dua Langkah dengan Pengurangan",
+        badge: "Pengurangan (−)",
+        badgeStyle: "bg-rose-100 text-rose-800",
+        story: `Tentukan nilai <span class="math-expr font-bold text-rose-700">p</span> yang memenuhi persamaan linear satu variabel berikut:<br><span class="math-expr text-lg font-extrabold text-slate-900 bg-white px-3 py-1 rounded-xl border border-slate-200 inline-block mt-1.5">4p − 5 = 19</span>`,
+        steps: [
+          {
+            stepNum: 1,
+            heading: "Tahap 1 — Kelompokkan (Isolate)",
+            body: `Pindahkan <span class="math-expr font-bold text-rose-600">−5</span> ke ruas kanan menjadi <span class="math-expr font-bold text-emerald-700">+5</span>:<br><span class="math-expr font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg inline-block mt-1">4p = 19 + 5 &rarr; 4p = 24</span>`
+          },
+          {
+            stepNum: 2,
+            heading: "Tahap 2 — Hitung Nilai p (Solve)",
+            body: `Bagi kedua ruas dengan koefisien 4:<br><span class="math-expr font-extrabold text-skyquest-800 bg-skyquest-50 px-2.5 py-1 rounded-lg inline-block mt-1">p = 24 ÷ 4 &rarr; p = 6</span>`
+          },
+          {
+            stepNum: 3,
+            heading: "Tahap 3 — Cek Substitusi (Verify)",
+            body: `Masukkan <span class="math-expr font-bold">p = 6</span>: <span class="math-expr font-bold">4(6) − 5 = 24 − 5 = 19</span> (<span class="text-emerald-700 font-extrabold">Ruas Kiri = Ruas Kanan, Cocok!</span>).`
+          }
+        ]
+      }
+    };
+
+    // ---------------------------------------------------------------------
+    // 4. CURRICULUM DATA: 5 INTERACTIVE PLSV CHALLENGES (70:30 MIX)
+    // ---------------------------------------------------------------------
+    const challengesData = [
+      {
+        id: 1,
+        category: "core",
+        tierLabel: "Dasar 70% • Challenge 1 (PLSV 1 Langkah)",
+        tierStyle: "bg-skyquest-100 text-skyquest-800",
+        title: "Pemanasan: Temukan Nilai Misteri x",
+        icon: "⚡",
+        varName: "x",
+        story: `Tentukan nilai <span class="math-expr font-bold text-skyquest-700">x</span> yang memenuhi persamaan berikut:<br><span class="math-expr text-lg font-extrabold text-slate-900 inline-block mt-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200">x + 14 = 30</span>`,
+        hint: `<strong>Tahap 1:</strong> Pindahkan <span class="math-expr font-bold">+14</span> ke ruas kanan menjadi <span class="math-expr font-bold">−14</span>.<br><strong>Tahap 2:</strong> Hitung hasil <span class="math-expr font-bold">30 − 14</span>!`,
+        step1Label: "Tahap 1: Pindah Ruas (contoh: x = 30 - 14)",
+        step1Placeholder: "contoh: x = 30 - 14",
+        acceptedStep1: ["x=30-14", "30-14", "x=16"],
+        expectedValue: 16,
+        verifyText: "16 + 14 = 30",
+        answerKey: {
+          step1: "x = 30 − 14",
+          step2: "x = 16",
+          step3: "16 + 14 = 30 (Cocok!)"
+        }
+      },
+      {
+        id: 2,
+        category: "core",
+        tierLabel: "Dasar 70% • Challenge 2 (PLSV 2 Langkah)",
+        tierStyle: "bg-skyquest-100 text-skyquest-800",
+        title: "Persamaan Dua Langkah: Cari Nilai m",
+        icon: "🎯",
+        varName: "m",
+        story: `Selesaikan persamaan linear dua langkah berikut untuk menemukan nilai <span class="math-expr font-bold text-skyquest-700">m</span>:<br><span class="math-expr text-lg font-extrabold text-slate-900 inline-block mt-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200">5m − 8 = 27</span>`,
+        hint: `<strong>Tahap 1:</strong> Pindahkan <span class="math-expr font-bold">−8</span> ke ruas kanan &rarr; <span class="math-expr font-bold">5m = 27 + 8 = 35</span>.<br><strong>Tahap 2:</strong> Bagi kedua ruas dengan 5 &rarr; <span class="math-expr font-bold">m = 35 ÷ 5</span>.`,
+        step1Label: "Tahap 1: Kelompokkan (contoh: 5m = 35)",
+        step1Placeholder: "contoh: 5m = 35",
+        acceptedStep1: ["5m=35", "5m=27+8", "35"],
+        expectedValue: 7,
+        verifyText: "5(7) − 8 = 35 − 8 = 27",
+        answerKey: {
+          step1: "5m = 27 + 8 → 5m = 35",
+          step2: "m = 35 ÷ 5 → m = 7",
+          step3: "5(7) − 8 = 27 (Cocok!)"
+        }
+      },
+      {
+        id: 3,
+        category: "core",
+        tierLabel: "Dasar 70% • Challenge 3 (Soal Cerita)",
+        tierStyle: "bg-skyquest-100 text-skyquest-800",
+        title: "Top Up Diamond Mobile Legends Reno",
+        icon: "💎",
+        varName: "d",
+        story: `Reno membeli <strong>4 bundle Diamond</strong> Mobile Legends dan mendapat bonus tambahan <strong>50 Diamond</strong>. Jika total Diamond yang masuk ke akun Reno adalah <strong>270 Diamond</strong>, tuliskan persamaan PLSV-nya dan tentukan isi 1 bundle (<span class="math-expr font-bold text-skyquest-700">d</span>)!`,
+        hint: `<strong>Tahap 1 (Model PLSV):</strong> <span class="math-expr font-bold">4d + 50 = 270</span>.<br><strong>Tahap 2:</strong> Pindahkan +50 ke ruas kanan &rarr; <span class="math-expr font-bold">4d = 270 − 50 = 220</span>, lalu bagi dengan 4!`,
+        step1Label: "Tahap 1: Persamaan PLSV (contoh: 4d + 50 = 270)",
+        step1Placeholder: "contoh: 4d + 50 = 270",
+        acceptedStep1: ["4d+50=270", "50+4d=270", "4d=220"],
+        expectedValue: 55,
+        verifyText: "4(55) + 50 = 220 + 50 = 270",
+        answerKey: {
+          step1: "4d + 50 = 270 → 4d = 220",
+          step2: "d = 220 ÷ 4 → d = 55 Diamond",
+          step3: "4(55) + 50 = 270 (Cocok!)"
+        }
+      },
+      {
+        id: 4,
+        category: "levelup",
+        tierLabel: "Pengayaan 30% • Challenge 4 (Suku Sejenis)",
+        tierStyle: "bg-amber-100 text-amber-800",
+        title: "Gabungkan Suku Sejenis Terlebih Dahulu!",
+        icon: "🧩",
+        varName: "x",
+        story: `Sederhanakan suku sejenis di ruas kiri terlebih dahulu, lalu tentukan nilai <span class="math-expr font-bold text-amber-700">x</span>:<br><span class="math-expr text-lg font-extrabold text-slate-900 inline-block mt-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200">3x + 2x − 4 = 21</span>`,
+        hint: `<strong>Tahap 1:</strong> Gabungkan <span class="math-expr font-bold">3x + 2x = 5x</span>, sehingga persamaannya menjadi <span class="math-expr font-bold">5x − 4 = 21</span>.<br><strong>Tahap 2:</strong> Pindahkan −4 &rarr; <span class="math-expr font-bold">5x = 25</span>, lalu bagi dengan 5!`,
+        step1Label: "Tahap 1: Bentuk Sederhana (contoh: 5x - 4 = 21)",
+        step1Placeholder: "contoh: 5x - 4 = 21",
+        acceptedStep1: ["5x-4=21", "5x=25"],
+        expectedValue: 5,
+        verifyText: "3(5) + 2(5) − 4 = 15 + 10 − 4 = 21",
+        answerKey: {
+          step1: "5x − 4 = 21 → 5x = 25",
+          step2: "x = 25 ÷ 5 → x = 5",
+          step3: "3(5) + 2(5) − 4 = 21 (Cocok!)"
+        }
+      },
+      {
+        id: 5,
+        category: "levelup",
+        tierLabel: "Pengayaan 30% • Boss Challenge 5 (Sifat Distributif)",
+        tierStyle: "bg-amber-100 text-amber-800",
+        title: "Boss Challenge: Buka Tanda Kurung & Hitung!",
+        icon: "👑",
+        varName: "y",
+        story: `Gunakan <strong>Sifat Distributif</strong> untuk membuka tanda kurung terlebih dahulu, lalu tentukan nilai <span class="math-expr font-bold text-amber-700">y</span>:<br><span class="math-expr text-lg font-extrabold text-slate-900 inline-block mt-1.5 px-3 py-1 rounded-xl bg-white border border-slate-200">3(2y + 4) = 48</span>`,
+        hint: `<strong>Tahap 1 (Distributif):</strong> Kalikan 3 ke dalam kurung: <span class="math-expr font-bold">6y + 12 = 48</span>.<br><strong>Tahap 2:</strong> Pindahkan +12 &rarr; <span class="math-expr font-bold">6y = 36</span>, lalu bagi dengan 6!`,
+        step1Label: "Tahap 1: Jabarkan Kurung (contoh: 6y + 12 = 48)",
+        step1Placeholder: "contoh: 6y + 12 = 48",
+        acceptedStep1: ["6y+12=48", "12+6y=48", "6y=36"],
+        expectedValue: 6,
+        verifyText: "3(2(6) + 4) = 3(16) = 48",
+        answerKey: {
+          step1: "6y + 12 = 48 → 6y = 36",
+          step2: "y = 36 ÷ 6 → y = 6",
+          step3: "3(2(6) + 4) = 48 (Cocok!)"
+        }
+      }
+    ];
+
+    // ---------------------------------------------------------------------
+    // 5. WEB AUDIO API SOUND SYNTHESIZER (Zero External Audio Files)
+    // ---------------------------------------------------------------------
+    function playChime(type = 'success') {
+      if (!state.soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'success') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.setValueAtTime(659.25, now + 0.09);
+          osc.frequency.setValueAtTime(783.99, now + 0.18);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+          osc.start(now);
+          osc.stop(now + 0.43);
+        } else if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(600, now);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.09);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(280, now);
+          osc.frequency.setValueAtTime(230, now + 0.1);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.26);
+        }
+      } catch (e) {
+        // Ignore audio errors if blocked by browser autoplay policy
+      }
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      const desktopBtn = document.getElementById('sound-toggle-desktop');
+      if (desktopBtn) desktopBtn.textContent = state.soundEnabled ? '🔊' : '🔇';
+      showToast(state.soundEnabled ? '🔊 Sound effects ON' : '🔇 Sound effects MUTED', 'info');
+    }
+
+    // ---------------------------------------------------------------------
+    // 6. TOAST NOTIFICATION SYSTEM (Replaces alert())
+    // ---------------------------------------------------------------------
+    function showToast(message, variant = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const styles = {
+        success: 'bg-emerald-600 text-white border-emerald-500',
+        warning: 'bg-amber-500 text-slate-950 border-amber-400',
+        info: 'bg-slate-800 text-white border-slate-700'
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-lg border text-xs sm:text-sm font-bold animate-pop ${styles[variant] || styles.info}`;
+      toast.innerHTML = message;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-6px)';
+        toast.style.transition = 'all 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 2800);
+    }
+
+    // ---------------------------------------------------------------------
+    // 7. TAB NAVIGATION & RESPONSIVE VIEW HANDLER
+    // ---------------------------------------------------------------------
+    function switchTab(tabName) {
+      state.activeTab = tabName;
+      playChime('click');
+
+      const isDesktop = window.innerWidth >= 1024;
+      const rightPanel = document.getElementById('right-widget-panel');
+      const allTabPanels = document.querySelectorAll('.tab-panel');
+
+      if (tabName === 'tools' && !isDesktop) {
+        allTabPanels.forEach(panel => {
+          panel.classList.add('hidden');
+          panel.classList.remove('tab-panel-active');
+        });
+        rightPanel.classList.remove('hidden');
+        rightPanel.classList.add('tab-panel-active');
+      } else {
+        const targetTab = (tabName === 'tools') ? 'home' : tabName;
+        state.activeTab = targetTab;
+
+        allTabPanels.forEach(panel => {
+          if (panel.id === `tab-${targetTab}`) {
+            panel.classList.remove('hidden');
+            panel.classList.add('tab-panel-active');
+          } else {
+            panel.classList.add('hidden');
+            panel.classList.remove('tab-panel-active');
+          }
+        });
+
+        if (isDesktop) {
+          rightPanel.classList.remove('hidden');
+        } else {
+          rightPanel.classList.add('hidden');
+        }
+      }
+
+      document.querySelectorAll('.sidebar-tab-btn').forEach(btn => {
+        const btnTab = btn.getAttribute('data-tab-btn');
+        if (btnTab === state.activeTab) {
+          btn.classList.remove('text-slate-600', 'hover:bg-slate-50', 'font-semibold');
+          btn.classList.add('bg-skyquest-50', 'text-skyquest-700', 'font-bold');
+        } else {
+          btn.classList.add('text-slate-600', 'hover:bg-slate-50', 'font-semibold');
+          btn.classList.remove('bg-skyquest-50', 'text-skyquest-700', 'font-bold');
+        }
+      });
+
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        const mTab = btn.getAttribute('data-mobile-tab');
+        if (mTab === tabName) {
+          btn.classList.remove('text-slate-500');
+          btn.classList.add('text-skyquest-600', 'bg-skyquest-50');
+        } else {
+          btn.classList.add('text-slate-500');
+          btn.classList.remove('text-skyquest-600', 'bg-skyquest-50');
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('resize', () => {
+      const isDesktop = window.innerWidth >= 1024;
+      const rightPanel = document.getElementById('right-widget-panel');
+      if (isDesktop) {
+        rightPanel.classList.remove('hidden');
+        if (state.activeTab === 'tools') {
+          switchTab('home');
+        }
+      } else if (state.activeTab !== 'tools') {
+        rightPanel.classList.add('hidden');
+      }
+    });
+
+    // ---------------------------------------------------------------------
+    // 8. 16:9 PROJECTOR FOCUS MODE & MR. TAQWA'S TEACHER MODE
+    // ---------------------------------------------------------------------
+    function toggleProjectorMode() {
+      state.projectorMode = !state.projectorMode;
+      const htmlEl = document.documentElement;
+      const btn = document.getElementById('projector-mode-btn');
+      const label = document.getElementById('projector-btn-label');
+
+      if (state.projectorMode) {
+        htmlEl.classList.add('projector-mode');
+        btn.classList.remove('bg-slate-100', 'text-slate-700');
+        btn.classList.add('bg-skyquest-600', 'text-white', 'border-skyquest-600');
+        if (label) label.textContent = '16:9 Focus: ON';
+        showToast('🖥️ 16:9 Projector Focus Mode ON — Enlarged classroom typography!', 'info');
+      } else {
+        htmlEl.classList.remove('projector-mode');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+        btn.classList.remove('bg-skyquest-600', 'text-white', 'border-skyquest-600');
+        if (label) label.textContent = '16:9 Projector Focus';
+        showToast('🖥️ Standard view restored', 'info');
+      }
+    }
+
+    function toggleTeacherMode(forceValue) {
+      if (typeof forceValue === 'boolean') {
+        state.teacherMode = forceValue;
+      } else {
+        state.teacherMode = !state.teacherMode;
+      }
+
+      const desktopCb = document.getElementById('teacher-mode-checkbox');
+      if (desktopCb) desktopCb.checked = state.teacherMode;
+
+      const mobileBtn = document.getElementById('mobile-teacher-toggle-btn');
+      if (mobileBtn) {
+        if (state.teacherMode) {
+          mobileBtn.textContent = '👨‍🏫 Key: ON';
+          mobileBtn.classList.remove('bg-slate-100', 'text-slate-700', 'border-slate-200');
+          mobileBtn.classList.add('bg-skyquest-600', 'text-white', 'border-skyquest-600');
+        } else {
+          mobileBtn.textContent = '👨‍🏫 Key: OFF';
+          mobileBtn.classList.add('bg-slate-100', 'text-slate-700', 'border-slate-200');
+          mobileBtn.classList.remove('bg-skyquest-600', 'text-white', 'border-skyquest-600');
+        }
+      }
+
+      document.querySelectorAll('.teacher-answer-key-box').forEach(box => {
+        if (state.teacherMode) {
+          box.classList.remove('hidden');
+        } else {
+          box.classList.add('hidden');
+        }
+      });
+
+      showToast(
+        state.teacherMode
+          ? "👨‍🏫 Mr. Taqwa's Teacher Mode ON — PLSV Answer keys visible!"
+          : "🔒 Teacher Mode OFF — Answer keys hidden.",
+        state.teacherMode ? 'success' : 'info'
+      );
+    }
+
+    // ---------------------------------------------------------------------
+    // 9. COPY BOARD NOTES (Iframe-Safe document.execCommand('copy'))
+    // ---------------------------------------------------------------------
+    function copyBoardNotes() {
+      const notesText = [
+        "SMP ALMAZAYA ISLAMIC SCHOOL — GRADE 7 (MR. TAQWA)",
+        "Topic: Linear Equations in One Variable (PLSV)",
+        "------------------------------------------------------",
+        "3 Wajib Syarat PLSV:",
+        "1. Uses equal sign (=)",
+        "2. Contains only 1 variable (e.g., x)",
+        "3. Highest power of the variable is 1",
+        "",
+        "3-Step PLSV Strategy:",
+        "Step 1 — Isolate (Kelompokkan variabel di kiri, konstanta di kanan)",
+        "Step 2 — Solve (Bagi kedua ruas dengan koefisien variabel)",
+        "Step 3 — Verify (Cek Substitusi: Ruas Kiri = Ruas Kanan)"
+      ].join("\n");
+
+      const textarea = document.createElement('textarea');
+      textarea.value = notesText;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        document.execCommand('copy');
+        playChime('success');
+        showToast('📋 PLSV Board notes copied to clipboard!', 'success');
+      } catch (err) {
+        showToast('Could not copy notes automatically.', 'warning');
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 10. INTERACTIVE APPLE BALANCE SCALE LAB (TIMBANGAN APEL & KOTAK x)
+    // ---------------------------------------------------------------------
+    function loadScalePreset(presetId) {
+      state.scale.presetId = presetId;
+      state.scale.revealSecret = false;
+
+      if (presetId === 1) {
+        state.scale.boxWeight = 4;
+        state.scale.leftBoxes = 2;
+        state.scale.leftApples = 3;
+        state.scale.rightBoxes = 0;
+        state.scale.rightApples = 11;
+      } else if (presetId === 2) {
+        state.scale.boxWeight = 4;
+        state.scale.leftBoxes = 3;
+        state.scale.leftApples = 2;
+        state.scale.rightBoxes = 0;
+        state.scale.rightApples = 14;
+      } else if (presetId === 3) {
+        state.scale.boxWeight = 4;
+        state.scale.leftBoxes = 2;
+        state.scale.leftApples = 1;
+        state.scale.rightBoxes = 1;
+        state.scale.rightApples = 5;
+      } else {
+        const randomX = Math.floor(Math.random() * 4) + 2; // 2..5
+        const boxes = Math.floor(Math.random() * 2) + 2;   // 2..3
+        const extraApples = Math.floor(Math.random() * 4) + 1; // 1..4
+        state.scale.boxWeight = randomX;
+        state.scale.leftBoxes = boxes;
+        state.scale.leftApples = extraApples;
+        state.scale.rightBoxes = 0;
+        state.scale.rightApples = boxes * randomX + extraApples;
+      }
+
+      document.querySelectorAll('.scale-preset-btn').forEach(btn => {
+        const id = Number(btn.getAttribute('data-preset-btn'));
+        if (id === presetId) {
+          btn.className = 'scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-extrabold bg-skyquest-600 text-white transition-all cursor-pointer';
+        } else if (id === 4) {
+          btn.className = 'scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 transition-all cursor-pointer';
+        } else {
+          btn.className = 'scale-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all cursor-pointer';
+        }
+      });
+
+      const revealBtn = document.getElementById('scale-reveal-btn');
+      if (revealBtn) revealBtn.textContent = '👀 Peek Secret x';
+
+      playChime('click');
+      renderBalanceScale();
+    }
+
+    function toggleScaleReveal() {
+      state.scale.revealSecret = !state.scale.revealSecret;
+      const revealBtn = document.getElementById('scale-reveal-btn');
+      if (revealBtn) {
+        revealBtn.textContent = state.scale.revealSecret ? '🙈 Hide Secret x' : '👀 Peek Secret x';
+      }
+      playChime('click');
+      renderBalanceScale();
+    }
+
+    function modifyPan(side, itemType, delta) {
+      if (side === 'left') {
+        if (itemType === 'box') {
+          state.scale.leftBoxes = Math.max(0, Math.min(5, state.scale.leftBoxes + delta));
+        } else {
+          state.scale.leftApples = Math.max(0, Math.min(18, state.scale.leftApples + delta));
+        }
+      } else {
+        if (itemType === 'box') {
+          state.scale.rightBoxes = Math.max(0, Math.min(5, state.scale.rightBoxes + delta));
+        } else {
+          state.scale.rightApples = Math.max(0, Math.min(18, state.scale.rightApples + delta));
+        }
+      }
+      playChime('click');
+      renderBalanceScale();
+    }
+
+    function applyBothSides(action) {
+      const s = state.scale;
+      if (action === 'removeApple') {
+        if (s.leftApples < 1 || s.rightApples < 1) {
+          showToast('⚠️ Kedua sisi harus memiliki minimal 1 apel untuk dikurangi bersama!', 'warning');
+          playChime('error');
+          return;
+        }
+        s.leftApples -= 1;
+        s.rightApples -= 1;
+        playChime('success');
+      } else if (action === 'addApple') {
+        s.leftApples = Math.min(18, s.leftApples + 1);
+        s.rightApples = Math.min(18, s.rightApples + 1);
+        playChime('click');
+      } else if (action === 'removeBox') {
+        if (s.leftBoxes < 1 || s.rightBoxes < 1) {
+          showToast('⚠️ Kedua sisi harus memiliki minimal 1 kotak (x) untuk dikurangi bersama!', 'warning');
+          playChime('error');
+          return;
+        }
+        s.leftBoxes -= 1;
+        s.rightBoxes -= 1;
+        playChime('success');
+      } else if (action === 'divideBoxes') {
+        if (s.leftBoxes > 1 && s.rightBoxes === 0 && s.leftApples === 0 && s.rightApples % s.leftBoxes === 0) {
+          s.rightApples = s.rightApples / s.leftBoxes;
+          s.leftBoxes = 1;
+          playChime('success');
+          showToast(`🎉 Berhasil! Kedua ruas dibagi rata sehingga 1 kotak (x) = ${s.rightApples} apel!`, 'success');
+        } else if (s.rightBoxes > 1 && s.leftBoxes === 0 && s.rightApples === 0 && s.leftApples % s.rightBoxes === 0) {
+          s.leftApples = s.leftApples / s.rightBoxes;
+          s.rightBoxes = 1;
+          playChime('success');
+          showToast(`🎉 Berhasil! Kedua ruas dibagi rata sehingga 1 kotak (x) = ${s.leftApples} apel!`, 'success');
+        } else {
+          showToast('💡 Tip: Kosongkan apel di sisi kotak terlebih dahulu agar bisa dibagi rata dengan jumlah kotak!', 'info');
+          playChime('error');
+          return;
+        }
+      }
+      renderBalanceScale();
+    }
+
+    function formatPanExpression(boxes, apples) {
+      const parts = [];
+      if (boxes > 0) parts.push(boxes === 1 ? 'x' : `${boxes}x`);
+      if (apples > 0) parts.push(`${apples}`);
+      return parts.length > 0 ? parts.join(' + ') : '0';
+    }
+
+    function buildPanItemsSvg(boxes, apples, centerX) {
+      let svgParts = [];
+      const baseY = 181;
+
+      // Draw Mystery Boxes (x) on bottom row
+      const boxW = 30;
+      const boxH = 26;
+      const boxGap = 6;
+      const totalBoxW = boxes * boxW + Math.max(0, boxes - 1) * boxGap;
+      let startBoxX = centerX - totalBoxW / 2;
+
+      for (let b = 0; b < boxes; b++) {
+        const bx = startBoxX + b * (boxW + boxGap);
+        const by = baseY - boxH;
+        svgParts.push(`
+          <g>
+            <rect x="${bx}" y="${by}" width="${boxW}" height="${boxH}" rx="6" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
+            <text x="${bx + boxW / 2}" y="${by + 18}" text-anchor="middle" fill="#FFFFFF" font-family="monospace" font-weight="bold" font-size="14">x</text>
+          </g>
+        `);
+      }
+
+      // Draw Apples (1) neatly stacked above or beside boxes
+      const appleStartY = boxes > 0 ? baseY - boxH - 12 : baseY - 11;
+      const cols = 6;
+      const spacingX = 18;
+      const spacingY = 17;
+
+      for (let a = 0; a < apples; a++) {
+        const row = Math.floor(a / cols);
+        const col = a % cols;
+        const itemsInThisRow = Math.min(cols, apples - row * cols);
+        const rowWidth = (itemsInThisRow - 1) * spacingX;
+        const ax = centerX - rowWidth / 2 + col * spacingX;
+        const ay = appleStartY - row * spacingY;
+
+        svgParts.push(`
+          <g>
+            <circle cx="${ax}" cy="${ay}" r="7.5" fill="#EF4444" stroke="#991B1B" stroke-width="1.5"/>
+            <path d="M${ax} ${ay - 7} Q${ax + 3} ${ay - 12} ${ax + 6} ${ay - 9}" stroke="#16A34A" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+        `);
+      }
+
+      return svgParts.join('');
+    }
+
+    function renderBalanceScale() {
+      const s = state.scale;
+      const leftWeight = s.leftBoxes * s.boxWeight + s.leftApples;
+      const rightWeight = s.rightBoxes * s.boxWeight + s.rightApples;
+      const diff = rightWeight - leftWeight;
+
+      // Update Expressions
+      const leftExprEl = document.getElementById('scale-left-expr');
+      const rightExprEl = document.getElementById('scale-right-expr');
+      if (leftExprEl) leftExprEl.textContent = formatPanExpression(s.leftBoxes, s.leftApples);
+      if (rightExprEl) rightExprEl.textContent = formatPanExpression(s.rightBoxes, s.rightApples);
+
+      // Update Status Badge & Tilt Angle
+      const statusCard = document.getElementById('scale-status-card');
+      const statusSym = document.getElementById('scale-status-symbol');
+      const statusTxt = document.getElementById('scale-status-text');
+      const beamGroup = document.getElementById('scale-beam-group');
+      const leftPanGroup = document.getElementById('scale-left-pan-group');
+      const rightPanGroup = document.getElementById('scale-right-pan-group');
+
+      const clampedDiff = Math.max(-10, Math.min(10, diff));
+      const angleDeg = clampedDiff * 1.35;
+      const panShiftY = clampedDiff * 2.5;
+
+      if (beamGroup) beamGroup.style.transform = `rotate(${angleDeg}deg)`;
+      if (leftPanGroup) leftPanGroup.style.transform = `translateY(${-panShiftY}px)`;
+      if (rightPanGroup) rightPanGroup.style.transform = `translateY(${panShiftY}px)`;
+
+      if (statusCard && statusSym && statusTxt) {
+        if (diff === 0) {
+          statusCard.className = 'p-3 rounded-2xl bg-emerald-50 border-2 border-emerald-400 text-center transition-all';
+          statusSym.className = 'math-expr text-xl sm:text-2xl font-extrabold text-emerald-700';
+          statusSym.textContent = '=';
+          statusTxt.className = 'text-xs font-extrabold text-emerald-800 mt-0.5';
+          statusTxt.textContent = '⚖️ BALANCED! (Seimbang)';
+        } else if (diff > 0) {
+          statusCard.className = 'p-3 rounded-2xl bg-amber-50 border-2 border-amber-400 text-center transition-all';
+          statusSym.className = 'math-expr text-xl sm:text-2xl font-extrabold text-amber-700';
+          statusSym.textContent = '<';
+          statusTxt.className = 'text-xs font-extrabold text-amber-800 mt-0.5';
+          statusTxt.textContent = 'Ruas Kanan Lebih Berat!';
+        } else {
+          statusCard.className = 'p-3 rounded-2xl bg-amber-50 border-2 border-amber-400 text-center transition-all';
+          statusSym.className = 'math-expr text-xl sm:text-2xl font-extrabold text-amber-700';
+          statusSym.textContent = '>';
+          statusTxt.className = 'text-xs font-extrabold text-amber-800 mt-0.5';
+          statusTxt.textContent = 'Ruas Kiri Lebih Berat!';
+        }
+      }
+
+      // Render SVG items inside Left & Right Pans
+      const leftItemsEl = document.getElementById('scale-left-items');
+      const rightItemsEl = document.getElementById('scale-right-items');
+      if (leftItemsEl) leftItemsEl.innerHTML = buildPanItemsSvg(s.leftBoxes, s.leftApples, 105);
+      if (rightItemsEl) rightItemsEl.innerHTML = buildPanItemsSvg(s.rightBoxes, s.rightApples, 415);
+
+      // Show Secret Banner when solved (1x = k) or when Peek is active
+      const secretBanner = document.getElementById('scale-secret-banner');
+      const secretText = document.getElementById('scale-secret-text');
+      const isSolvedState =
+        diff === 0 &&
+        ((s.leftBoxes === 1 && s.leftApples === 0 && s.rightBoxes === 0) ||
+         (s.rightBoxes === 1 && s.rightApples === 0 && s.leftBoxes === 0));
+
+      if (secretBanner && secretText) {
+        if (isSolvedState) {
+          secretBanner.classList.remove('hidden');
+          secretText.textContent = `🎉 Terpecahkan! 1 Kotak Misteri (x) = ${s.boxWeight} Apel!`;
+        } else if (s.revealSecret) {
+          secretBanner.classList.remove('hidden');
+          secretText.textContent = `👀 Rahasia Kotak: Setiap 1 Kotak (x) berisi ${s.boxWeight} Apel!`;
+        } else {
+          secretBanner.classList.add('hidden');
+        }
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 11. PLSV SPOTTER (CORE NOTES CONCEPT CHECK)
+    // ---------------------------------------------------------------------
+    const spotterAnswers = [
+      { isPlsv: true, text: "✅ YA, PLSV! Tanda (=), 1 variabel (x), pangkat 1." },
+      { isPlsv: false, text: "❌ BUKAN PLSV! Pangkat variabelnya 2 (x²)." },
+      { isPlsv: false, text: "❌ BUKAN PLSV! Memiliki 2 variabel (x dan y)." },
+      { isPlsv: true, text: "✅ YA, PLSV! Tanda (=), 1 variabel (p), pangkat 1." }
+    ];
+
+    function revealSpotter(idx) {
+      const card = document.getElementById(`spotter-card-${idx}`);
+      const msg = document.getElementById(`spotter-msg-${idx}`);
+      const item = spotterAnswers[idx];
+      if (!card || !msg || !item) return;
+
+      playChime(item.isPlsv ? 'success' : 'error');
+      card.className = item.isPlsv
+        ? 'p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-400 text-center transition-all cursor-pointer animate-pop'
+        : 'p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 text-center transition-all cursor-pointer animate-pop';
+      msg.className = item.isPlsv
+        ? 'text-xs font-extrabold text-emerald-800 mt-1.5'
+        : 'text-xs font-extrabold text-rose-800 mt-1.5';
+      msg.textContent = item.text;
+    }
+
+    // ---------------------------------------------------------------------
+    // 12. GUIDED EXAMPLES RENDERER & STEP-BY-STEP REVEAL
+    // ---------------------------------------------------------------------
+    function selectExample(exampleId) {
+      state.activeExampleId = exampleId;
+      playChime('click');
+
+      [1, 2].forEach(id => {
+        const btn = document.getElementById(`example-switch-${id}`);
+        if (!btn) return;
+        if (id === exampleId) {
+          btn.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200', 'font-bold');
+          btn.classList.add('bg-skyquest-600', 'text-white', 'shadow-xs', 'font-extrabold');
+        } else {
+          btn.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200', 'font-bold');
+          btn.classList.remove('bg-skyquest-600', 'text-white', 'shadow-xs', 'font-extrabold');
+        }
+      });
+
+      renderGuidedExample();
+    }
+
+    function revealExampleStep(stepNumber) {
+      const exId = state.activeExampleId;
+      if (state.exampleStepsRevealed[exId] < stepNumber) {
+        state.exampleStepsRevealed[exId] = stepNumber;
+      }
+      playChime('success');
+      renderGuidedExample();
+    }
+
+    function resetExampleSteps() {
+      state.exampleStepsRevealed[state.activeExampleId] = 0;
+      playChime('click');
+      renderGuidedExample();
+    }
+
+    function renderGuidedExample() {
+      const exId = state.activeExampleId;
+      const ex = guidedExamples[exId];
+      const revealedCount = state.exampleStepsRevealed[exId];
+      const container = document.getElementById('example-display-box');
+      if (!container || !ex) return;
+
+      const stepsHtml = ex.steps.map(step => {
+        const isShown = revealedCount >= step.stepNum;
+        if (!isShown) {
+          return `
+            <div class="p-4 rounded-2xl border-2 border-dashed border-slate-200 bg-white/60 flex items-center justify-between gap-3">
+              <span class="text-xs sm:text-sm font-bold text-slate-400">🔒 ${step.heading}</span>
+              <button type="button" onclick="revealExampleStep(${step.stepNum})" class="px-3.5 py-1.5 rounded-xl bg-skyquest-600 hover:bg-skyquest-700 text-white text-xs font-extrabold transition-colors cursor-pointer shrink-0">
+                Buka Tahap ${step.stepNum}
+              </button>
+            </div>
+          `;
+        }
+        return `
+          <div class="p-4 rounded-2xl bg-white border border-skyquest-200 shadow-2xs animate-pop">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-skyquest-600 mb-1">${step.heading}</p>
+            <div class="text-sm sm:text-base text-slate-700 leading-relaxed">${step.body}</div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <h3 class="font-extrabold text-slate-800 text-base sm:text-lg">${ex.title}</h3>
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold ${ex.badgeStyle}">${ex.badge}</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/80 text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+          ${ex.story}
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <button type="button" onclick="revealExampleStep(1)" class="px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${revealedCount >= 1 ? 'bg-emerald-100 text-emerald-800' : 'bg-skyquest-600 hover:bg-skyquest-700 text-white'}">
+            ${revealedCount >= 1 ? '✓ Tahap 1 Terbuka' : 'Buka Tahap 1'}
+          </button>
+          <button type="button" onclick="revealExampleStep(2)" class="px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${revealedCount >= 2 ? 'bg-emerald-100 text-emerald-800' : 'bg-skyquest-600 hover:bg-skyquest-700 text-white'}">
+            ${revealedCount >= 2 ? '✓ Tahap 2 Terbuka' : 'Buka Tahap 2'}
+          </button>
+          <button type="button" onclick="revealExampleStep(3)" class="px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${revealedCount >= 3 ? 'bg-emerald-100 text-emerald-800' : 'bg-skyquest-600 hover:bg-skyquest-700 text-white'}">
+            ${revealedCount >= 3 ? '✓ Tahap 3 Terbuka' : 'Buka Tahap 3'}
+          </button>
+          <button type="button" onclick="resetExampleSteps()" class="ml-auto px-3.5 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition-all cursor-pointer">
+            Reset Tahapan
+          </button>
+        </div>
+
+        <div class="space-y-3">
+          ${stepsHtml}
+        </div>
+      `;
+    }
+
+    // ---------------------------------------------------------------------
+    // 13. CHALLENGE ARENA RENDERING, VALIDATION & REFLECTION SUBMISSION
+    // ---------------------------------------------------------------------
+    function filterChallenges(category) {
+      state.challengeFilter = category;
+      document.querySelectorAll('.challenge-filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-filter-btn') === category) {
+          btn.classList.remove('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200', 'font-bold');
+          btn.classList.add('bg-skyquest-600', 'text-white', 'font-extrabold');
+        } else {
+          btn.classList.add('bg-slate-100', 'text-slate-600', 'hover:bg-slate-200', 'font-bold');
+          btn.classList.remove('bg-skyquest-600', 'text-white', 'font-extrabold');
+        }
+      });
+      renderChallengeCards();
+    }
+
+    function toggleChallengeHint(id) {
+      const hintBox = document.getElementById(`challenge-hint-${id}`);
+      if (hintBox) {
+        hintBox.classList.toggle('hidden');
+        playChime('click');
+      }
+    }
+
+    function normalizeExpression(raw) {
+      return (raw || '')
+        .toLowerCase()
+        .replace(/\s+/g, '')
+        .replace(/−/g, '-')
+        .replace(/×/g, '*');
+    }
+
+    function checkChallengeAnswer(id) {
+      const quest = challengesData.find(q => q.id === id);
+      if (!quest) return;
+
+      const step1Input = document.getElementById(`quest-step1-${id}`);
+      const valInput = document.getElementById(`quest-val-${id}`);
+      const feedbackBox = document.getElementById(`quest-feedback-${id}`);
+
+      const cleanStep1 = normalizeExpression(step1Input ? step1Input.value : '');
+      const numericVal = parseFloat((valInput ? valInput.value : '').replace(/[^0-9.-]/g, ''));
+
+      const isStep1Ok = cleanStep1.length > 0 && quest.acceptedStep1.includes(cleanStep1);
+      const isValOk = !isNaN(numericVal) && numericVal === quest.expectedValue;
+
+      feedbackBox.classList.remove('hidden');
+
+      if (isValOk) {
+        feedbackBox.className = 'mt-4 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold animate-pop';
+        feedbackBox.innerHTML = `🎉 <strong>MasyaAllah, Tepat!</strong> Nilai <span class="math-expr bg-white px-2 py-0.5 rounded border border-emerald-200">${quest.varName} = ${quest.expectedValue}</span> benar! Cek substitusi: <span class="math-expr">${quest.verifyText}</span>.`;
+
+        if (!state.solvedQuests.has(id)) {
+          state.solvedQuests.add(id);
+          state.gems += 50;
+          playChime('success');
+          updateAllProgressUI();
+          showToast(`💎 +50 Gems diperoleh dari Challenge ${id}!`, 'success');
+        } else {
+          playChime('success');
+        }
+      } else {
+        playChime('error');
+        const tipMsg = !isStep1Ok
+          ? `Periksa langkah pindah ruas atau penyederhanaanmu pada <strong>Tahap 1</strong>, lalu hitung nilai <strong>${quest.varName}</strong> pada <strong>Tahap 2</strong>.`
+          : `Langkah Tahap 1 sudah tepat! Sekarang hitung pembagian/hasil akhir nilai <strong>${quest.varName}</strong> pada <strong>Tahap 2</strong>.`;
+
+        feedbackBox.className = 'mt-4 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 text-xs sm:text-sm font-semibold animate-pop';
+        feedbackBox.innerHTML = `🤔 <strong>Hampir berhasil! Diskusikan dengan teman sebangku atau panggil Mr. Taqwa:</strong><p class="mt-1">${tipMsg}</p>`;
+      }
+    }
+
+    function renderChallengeCards() {
+      const container = document.getElementById('challenge-cards-container');
+      if (!container) return;
+
+      const filtered = challengesData.filter(q => {
+        if (state.challengeFilter === 'all') return true;
+        return q.category === state.challengeFilter;
+      });
+
+      container.innerHTML = filtered.map(quest => {
+        const isSolved = state.solvedQuests.has(quest.id);
+        return `
+          <article class="bg-white rounded-3xl p-5 sm:p-6 shadow-card border-2 transition-all ${isSolved ? 'border-emerald-300 bg-emerald-50/15' : 'border-slate-100'}">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl ${isSolved ? 'bg-emerald-600 text-white' : 'bg-skyquest-100 text-skyquest-700'} font-extrabold flex items-center justify-center text-lg shrink-0">
+                  ${isSolved ? '✓' : quest.icon}
+                </div>
+                <div>
+                  <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${quest.tierStyle}">
+                    ${quest.tierLabel}
+                  </span>
+                  <h3 class="font-extrabold text-slate-800 text-base sm:text-lg mt-0.5">${quest.title}</h3>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-xl text-xs font-extrabold ${isSolved ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-50 text-skyquest-700 border border-sky-100'}">
+                  ${isSolved ? '✅ +50 💎 Didapat' : '+50 💎'}
+                </span>
+                <button type="button" onclick="toggleChallengeHint(${quest.id})" class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200/80 text-xs font-bold transition-colors cursor-pointer">
+                  💡 Minta Petunjuk
+                </button>
+              </div>
+            </div>
+
+            <div class="text-sm sm:text-base text-slate-700 leading-relaxed bg-slate-50/90 p-4 rounded-2xl border border-slate-100">
+              ${quest.story}
+            </div>
+
+            <div id="challenge-hint-${quest.id}" class="hidden mt-3 p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 text-xs sm:text-sm text-amber-950 leading-relaxed animate-pop">
+              💡 <strong>Petunjuk Pengerjaan:</strong><br>${quest.hint}
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-4">
+              <div>
+                <label for="quest-step1-${quest.id}" class="block text-xs font-extrabold text-slate-700 mb-1">
+                  ${quest.step1Label}
+                </label>
+                <input type="text" id="quest-step1-${quest.id}" placeholder="${quest.step1Placeholder}"
+                       class="math-expr w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+              </div>
+
+              <div>
+                <label for="quest-val-${quest.id}" class="block text-xs font-extrabold text-slate-700 mb-1">
+                  Tahap 2: Nilai Akhir Variabel <span class="text-skyquest-600">(${quest.varName} = ...)</span>
+                </label>
+                <input type="text" inputmode="numeric" id="quest-val-${quest.id}" placeholder="Masukkan angka nilai ${quest.varName}..."
+                       class="math-expr w-full px-3.5 py-2.5 rounded-2xl border border-slate-200 bg-white text-slate-800 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-skyquest-500">
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+              <span class="text-[11px] font-semibold text-slate-400">
+                Bingung? Angkat tangan dan panggil Mr. Taqwa! 🙋‍♂️
+              </span>
+              <button type="button" onclick="checkChallengeAnswer(${quest.id})" class="px-5 py-2.5 rounded-2xl ${isSolved ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-skyquest-600 hover:bg-skyquest-700'} text-white font-extrabold text-xs sm:text-sm shadow-xs transition-all cursor-pointer">
+                ${isSolved ? 'Periksa Ulang ✓' : 'Periksa Jawaban'}
+              </button>
+            </div>
+
+            <div id="quest-feedback-${quest.id}" class="hidden"></div>
+
+            <!-- Mr. Taqwa's Answer Key -->
+            <div class="teacher-answer-key-box ${state.teacherMode ? '' : 'hidden'} mt-4 p-4 rounded-2xl bg-skyquest-900 text-white border border-skyquest-700 animate-pop">
+              <div class="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-sky-300 mb-1.5">
+                <span>👨‍🏫</span>
+                <span>Kunci Jawaban Mr. Taqwa — Challenge ${quest.id}</span>
+              </div>
+              <div class="text-xs sm:text-sm space-y-1 text-sky-50">
+                <p><strong>Tahap 1:</strong> <span class="math-expr font-bold text-amber-300">${quest.answerKey.step1}</span></p>
+                <p><strong>Tahap 2:</strong> <span class="math-expr font-bold text-emerald-300">${quest.answerKey.step2}</span></p>
+                <p><strong>Tahap 3 (Cek):</strong> <span class="math-expr">${quest.answerKey.step3}</span></p>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // ---------------------------------------------------------------------
+    // 14. STUDENT REFLECTION & SPREADSHEET SUBMISSION
+    // ---------------------------------------------------------------------
+    function selectStudentMood(moodText) {
+      state.studentMood = moodText;
+      playChime('click');
+      document.querySelectorAll('.mood-choice-btn').forEach(btn => {
+        if (btn.getAttribute('data-mood') === moodText) {
+          btn.classList.remove('bg-white/10', 'border-white/20');
+          btn.classList.add('bg-amber-400/30', 'border-amber-300', 'ring-2', 'ring-amber-300');
+        } else {
+          btn.classList.add('bg-white/10', 'border-white/20');
+          btn.classList.remove('bg-amber-400/30', 'border-amber-300', 'ring-2', 'ring-amber-300');
+        }
+      });
+    }
+
+    async function submitStudentReflectionAndAnswers() {
+      const statusBox = document.getElementById('student-submit-status');
+      const submitBtn = document.getElementById('submit-student-sheet-btn');
+      const msgInput = document.getElementById('student-reflection-message');
+
+      if (state.userRole === 'guest') {
+        openLoginModal();
+        showToast('⚠️ Silakan login dengan nama lengkapmu terlebih dahulu!', 'warning');
+        return;
+      }
+
+      if (!state.studentMood) {
+        statusBox.className = 'p-3.5 rounded-2xl bg-amber-500/20 border border-amber-300 text-amber-200 text-xs sm:text-sm font-bold animate-pop';
+        statusBox.textContent = '⚠️ Pilih salah satu perasaan belajarmu hari ini terlebih dahulu ya!';
+        statusBox.classList.remove('hidden');
+        playChime('error');
+        return;
+      }
+
+      const answersPayload = challengesData.map(q => {
+        const s1 = document.getElementById(`quest-step1-${q.id}`)?.value.trim() || '(Kosong)';
+        const v1 = document.getElementById(`quest-val-${q.id}`)?.value.trim() || '(Kosong)';
+        return {
+          id: q.id,
+          title: q.title,
+          step1Input: s1,
+          valInput: v1,
+          isSolved: state.solvedQuests.has(q.id)
+        };
+      });
+
+      const payload = {
+        role: 'student',
+        studentName: state.userName,
+        studentClass: `Grade ${state.userClass}`,
+        solvedCount: state.solvedQuests.size,
+        gems: state.gems,
+        answers: answersPayload,
+        mood: state.studentMood,
+        reflectionMessage: (msgInput ? msgInput.value.trim() : '') || '-'
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⏳ Mengirim ke Spreadsheet...';
+
+      try {
+        await fetch(state.appsScriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        playChime('success');
+        statusBox.className = 'p-3.5 rounded-2xl bg-emerald-500/25 border border-emerald-300 text-emerald-100 text-xs sm:text-sm font-bold animate-pop';
+        statusBox.innerHTML = `✅ <strong>Alhamdulillah, Terkirim!</strong> Sheet baru atas nama <strong>${state.userName}</strong> (berisi Tabel Jawaban Challenge &amp; Tabel Refleksi) sudah dibuat di Spreadsheet Mr. Taqwa!`;
+        statusBox.classList.remove('hidden');
+        showToast('📤 Jawaban & refleksi berhasil dikirim!', 'success');
+      } catch (err) {
+        playChime('error');
+        statusBox.className = 'p-3.5 rounded-2xl bg-rose-500/25 border border-rose-300 text-rose-100 text-xs sm:text-sm font-bold animate-pop';
+        statusBox.textContent = '❌ Gagal terhubung ke internet/Spreadsheet. Coba klik kirim ulang beberapa detik lagi.';
+        statusBox.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📤 Kirim Jawaban & Refleksi ke Spreadsheet';
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 15. SUPERVISOR RATING & FEEDBACK SUBMISSION (id: supervisor)
+    // ---------------------------------------------------------------------
+    const ratingDescriptions = {
+      1: "Terpilih: 1 / 5 Bintang — Perlu pendampingan dan perbaikan mendasar.",
+      2: "Terpilih: 2 / 5 Bintang — Cukup, beberapa tahapan RPM perlu diperkuat.",
+      3: "Terpilih: 3 / 5 Bintang — Baik, alur pembelajaran berjalan sesuai rencana.",
+      4: "Terpilih: 4 / 5 Bintang — Sangat Baik, siswa aktif dan integrasi digital berjalan efektif.",
+      5: "Terpilih: 5 / 5 Bintang — Praktik Pembelajaran Mendalam (Mindful, Meaningful, Joyful & Digital) sangat optimal."
+    };
+
+    function setSupervisorRating(stars) {
+      state.supervisorRating = stars;
+      playChime('click');
+      document.querySelectorAll('.sup-star-btn').forEach(btn => {
+        const val = Number(btn.getAttribute('data-star'));
+        if (val === stars) {
+          btn.className = 'sup-star-btn px-3.5 py-2 rounded-xl bg-amber-400 border border-amber-500 text-sm font-extrabold text-slate-950 shadow-2xs transition-all cursor-pointer';
+        } else {
+          btn.className = 'sup-star-btn px-3.5 py-2 rounded-xl bg-white border border-purple-200 text-sm font-extrabold text-slate-600 hover:bg-amber-50 transition-all cursor-pointer';
+        }
+      });
+      const descEl = document.getElementById('sup-rating-desc');
+      if (descEl) descEl.textContent = ratingDescriptions[stars] || '';
+    }
+
+    async function submitSupervisorFeedback(event) {
+      event.preventDefault();
+      const supName = document.getElementById('sup-name-input')?.value.trim() || 'Supervisor';
+      const observedClass = document.getElementById('sup-class-select')?.value || 'Grade 7.4';
+      const suggestion = document.getElementById('sup-suggestion-textarea')?.value.trim() || '-';
+      const submitBtn = document.getElementById('submit-supervisor-btn');
+      const statusBox = document.getElementById('supervisor-submit-status');
+
+      const payload = {
+        role: 'supervisor',
+        supervisorName: supName,
+        observedClass: observedClass,
+        rating: state.supervisorRating,
+        suggestion: suggestion
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⏳ Menyimpan Catatan Supervisi...';
+
+      try {
+        await fetch(state.appsScriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        playChime('success');
+        statusBox.className = 'p-3.5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs sm:text-sm font-bold animate-pop';
+        statusBox.textContent = '✅ Terima kasih! Rating dan saran supervisi telah tersimpan rapi di Spreadsheet Mr. Taqwa.';
+        statusBox.classList.remove('hidden');
+        showToast('📋 Catatan supervisi berhasil dikirim!', 'success');
+      } catch (err) {
+        playChime('error');
+        statusBox.className = 'p-3.5 rounded-2xl bg-rose-50 border border-rose-300 text-rose-900 text-xs sm:text-sm font-bold animate-pop';
+        statusBox.textContent = '❌ Gagal mengirim catatan. Periksa koneksi internet lalu coba lagi.';
+        statusBox.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📤 Kirim Saran & Rating ke Spreadsheet';
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 1C. STEALTH LIVE MONITORING DASHBOARD FUNCTIONS (Mr. Taqwa Only)
+    // ---------------------------------------------------------------------
+    function startDashboardAutoRefresh() {
+      if (state.dashboard.intervalId) clearInterval(state.dashboard.intervalId);
+      state.dashboard.intervalId = setInterval(() => {
+        if (state.userRole === 'guru' && state.dashboard.autoRefresh) {
+          fetchLiveDashboardData(false);
+        }
+      }, 12000);
+    }
+
+    function toggleDashboardAutoRefresh() {
+      state.dashboard.autoRefresh = !state.dashboard.autoRefresh;
+      const btn = document.getElementById('guru-autorefresh-btn');
+      if (btn) {
+        if (state.dashboard.autoRefresh) {
+          btn.textContent = '🟢 Auto-Sync: ON (12d)';
+          btn.className = 'px-3.5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-extrabold shadow-2xs transition-all cursor-pointer';
+          fetchLiveDashboardData(true);
+        } else {
+          btn.textContent = '⏸ Auto-Sync: OFF';
+          btn.className = 'px-3.5 py-2 rounded-xl bg-slate-200 text-slate-700 text-xs font-extrabold transition-all cursor-pointer';
+        }
+      }
+    }
+
+    async function fetchLiveDashboardData(showFeedback = false) {
+      if (!state.appsScriptUrl) return;
+      const syncLabel = document.getElementById('guru-last-sync');
+      const refreshBtn = document.getElementById('guru-manual-refresh-btn');
+
+      if (refreshBtn) refreshBtn.textContent = '⏳ Memuat...';
+
+      try {
+        const res = await fetch(`${state.appsScriptUrl}?t=${Date.now()}`);
+        const json = await res.json();
+
+        if (json && json.status === 'success') {
+          state.dashboard.students = Array.isArray(json.students) ? json.students : [];
+          state.dashboard.supervisions = Array.isArray(json.supervisions) ? json.supervisions : [];
+          state.dashboard.serverTime = json.serverTime || new Date().toLocaleTimeString('id-ID');
+
+          if (syncLabel) {
+            syncLabel.textContent = `Terakhir diperbarui: ${state.dashboard.serverTime} (Otomatis sinkron dengan Google Spreadsheet)`;
+          }
+          renderLiveDashboard();
+          if (showFeedback) {
+            showToast('🔄 Data terbaru berhasil dimuat!', 'success');
+          }
+        }
+      } catch (err) {
+        if (syncLabel) {
+          syncLabel.textContent = '⚠️ Gagal menarik data. Pastikan Code.gs sudah di-Deploy versi terbaru.';
+        }
+      } finally {
+        if (refreshBtn) refreshBtn.textContent = '🔄 Refresh Sekarang';
+      }
+    }
+
+    function toggleStudentDetailRow(studentName) {
+      state.dashboard.expandedStudent = (state.dashboard.expandedStudent === studentName) ? null : studentName;
+      renderLiveDashboard();
+    }
+
+    function renderLiveDashboard() {
+      const classFilter = document.getElementById('guru-class-filter')?.value || '7.4';
+      const statusFilter = document.getElementById('guru-status-filter')?.value || 'all';
+      const rosterNames = STUDENT_ROSTER_BY_CLASS[classFilter] || [];
+
+      // Map submitted students by lowercase name
+      const submittedMap = new Map();
+      state.dashboard.students.forEach(s => {
+        submittedMap.set(s.nama.toLowerCase().trim(), s);
+      });
+
+      // Compute KPIs for selected class
+      let submittedCount = 0;
+      let totalScoreSum = 0;
+
+      const mergedList = rosterNames.map((name, idx) => {
+        const sub = submittedMap.get(name.toLowerCase().trim());
+        if (sub) {
+          submittedCount++;
+          const numScore = parseInt(String(sub.skor).split('/')[0], 10) || 0;
+          totalScoreSum += numScore;
+        }
+        return {
+          no: idx + 1,
+          nama: name,
+          data: sub || null
+        };
+      });
+
+      const avgScore = submittedCount > 0 ? (totalScoreSum / submittedCount).toFixed(1) : '0.0';
+      const supList = state.dashboard.supervisions;
+
+      const kpiSub = document.getElementById('guru-kpi-submitted');
+      const kpiSubText = document.getElementById('guru-kpi-subtext');
+      const kpiAvg = document.getElementById('guru-kpi-avgscore');
+      const kpiSupCount = document.getElementById('guru-kpi-supcount');
+      const kpiSupRating = document.getElementById('guru-kpi-suprating');
+
+      if (kpiSub) kpiSub.textContent = `${submittedCount} / ${rosterNames.length}`;
+      if (kpiSubText) kpiSubText.textContent = `Kelas aktif: Grade ${classFilter}`;
+      if (kpiAvg) kpiAvg.textContent = `${avgScore} / 5`;
+      if (kpiSupCount) kpiSupCount.textContent = `${supList.length} Masukan`;
+      if (kpiSupRating) {
+        kpiSupRating.textContent = supList.length > 0
+          ? `Terbaru: ${supList[0].rating}`
+          : 'Belum ada rating masuk';
+      }
+
+      // Render Supervisor Feed
+      const supFeed = document.getElementById('guru-supervisor-feed');
+      if (supFeed) {
+        if (supList.length === 0) {
+          supFeed.innerHTML = `
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 text-xs sm:text-sm text-slate-500 text-center">
+              Belum ada catatan dari Supervisor yang masuk.
+            </div>
+          `;
+        } else {
+          supFeed.innerHTML = supList.map(item => `
+            <div class="p-4 rounded-2xl bg-purple-50/70 border border-purple-200/80 space-y-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="font-extrabold text-purple-950 text-xs sm:text-sm">
+                  👤 ${item.supervisor} <span class="text-purple-600 font-semibold">• ${item.kelas}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-extrabold">${item.rating}</span>
+                  <span class="text-[11px] text-slate-400 font-semibold">${item.waktu}</span>
+                </div>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-700 bg-white p-3 rounded-xl border border-purple-100 leading-relaxed">
+                "${item.saran}"
+              </p>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Render Student Progress Table
+      const tbody = document.getElementById('guru-student-tbody');
+      if (!tbody) return;
+
+      const filteredRows = mergedList.filter(row => {
+        if (statusFilter === 'submitted') return row.data !== null;
+        if (statusFilter === 'pending') return row.data === null;
+        return true;
+      });
+
+      tbody.innerHTML = filteredRows.map(row => {
+        const sub = row.data;
+        const isExpanded = state.dashboard.expandedStudent === row.nama;
+
+        if (!sub) {
+          return `
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              <td class="py-3 px-3.5 font-bold text-slate-400">${row.no}</td>
+              <td class="py-3 px-3.5 font-bold text-slate-700">${row.nama}</td>
+              <td class="py-3 px-3.5">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-extrabold">
+                  ⏳ Belum Kirim
+                </span>
+              </td>
+              <td class="py-3 px-3.5 text-xs text-slate-400">-</td>
+              <td class="py-3 px-3.5 text-xs text-slate-400 italic">Sedang mengerjakan / belum submit</td>
+            </tr>
+          `;
+        }
+
+        const detailsHtml = (sub.details && sub.details.length > 0)
+          ? sub.details.map(d => `
+              <div class="p-2.5 rounded-xl bg-white border ${String(d.status).includes('TEPAT (BENAR)') ? 'border-emerald-200' : 'border-rose-200'} text-xs">
+                <div class="flex items-center justify-between font-extrabold mb-1">
+                  <span class="text-slate-700">Soal ${d.no}: ${d.title}</span>
+                  <span class="${String(d.status).includes('TEPAT (BENAR)') ? 'text-emerald-700' : 'text-rose-700'}">${d.status}</span>
+                </div>
+                <div class="math-expr text-[11px] text-slate-600">
+                  Tahap 1: <strong>${d.step1}</strong> &bull; Tahap 2: <strong>${d.val}</strong>
+                </div>
+              </div>
+            `).join('')
+          : `<p class="text-xs text-slate-500">Detail per soal tersimpan di tab sheet pribadi <strong>${sub.nama}</strong>.</p>`;
+
+        return `
+          <tr onclick="toggleStudentDetailRow('${row.nama.replace(/'/g, "\\'")}')" class="cursor-pointer hover:bg-sky-50/60 transition-colors bg-emerald-50/15">
+            <td class="py-3 px-3.5 font-extrabold text-slate-600">${row.no}</td>
+            <td class="py-3 px-3.5">
+              <div class="font-extrabold text-skyquest-800 hover:underline">${row.nama} ${isExpanded ? '▴' : '▾'}</div>
+              <div class="text-[10px] text-slate-400">${sub.waktu}</div>
+            </td>
+            <td class="py-3 px-3.5">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">
+                ✅ ${sub.skor} (${sub.gems} 💎)
+              </span>
+            </td>
+            <td class="py-3 px-3.5 text-xs font-bold text-slate-700">${sub.mood}</td>
+            <td class="py-3 px-3.5 text-xs text-slate-700 max-w-xs">${sub.pesan}</td>
+          </tr>
+          ${isExpanded ? `
+            <tr class="bg-sky-50/70">
+              <td colspan="5" class="p-3.5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                  ${detailsHtml}
+                </div>
+              </td>
+            </tr>
+          ` : ''}
+        `;
+      }).join('');
+    }
+
+    // ---------------------------------------------------------------------
+    // 13. DYNAMIC PROGRESS RING & GAMIFICATION UI UPDATER
+    // ---------------------------------------------------------------------
+    function updateAllProgressUI() {
+      const solvedCount = state.solvedQuests.size;
+      const totalQuests = challengesData.length;
+      const pct = Math.round((solvedCount / totalQuests) * 100);
+
+      const gemEl = document.getElementById('gem-counter');
+      if (gemEl) gemEl.textContent = state.gems;
+
+      const sidebarBadge = document.getElementById('sidebar-quest-badge');
+      if (sidebarBadge) sidebarBadge.textContent = `${solvedCount}/${totalQuests}`;
+
+      const arenaCount = document.getElementById('arena-solved-count');
+      if (arenaCount) arenaCount.textContent = solvedCount;
+
+      const homePct = Math.min(100, Math.max(15, pct));
+      const homeBar = document.getElementById('home-continue-bar');
+      const homePctText = document.getElementById('home-continue-pct');
+      if (homeBar) homeBar.style.width = `${homePct}%`;
+      if (homePctText) homePctText.textContent = `${homePct}%`;
+
+      const circumference = 251.2;
+      const offset = circumference - (solvedCount / totalQuests) * circumference;
+      const ringCircle = document.getElementById('goal-ring-circle');
+      if (ringCircle) {
+        ringCircle.style.strokeDashoffset = offset;
+        if (solvedCount === totalQuests) {
+          ringCircle.setAttribute('stroke', '#10B981');
+        }
+      }
+
+      const ringCount = document.getElementById('goal-ring-count');
+      if (ringCount) ringCount.textContent = `${solvedCount} / ${totalQuests}`;
+
+      const statusTitle = document.getElementById('goal-status-title');
+      const statusDesc = document.getElementById('goal-status-desc');
+      if (statusTitle && statusDesc) {
+        if (solvedCount === 0) {
+          statusTitle.textContent = "Keep going, Grade 7!";
+          statusDesc.innerHTML = `Solve all 5 PLSV quests to earn <strong>250 💎 Gems</strong> today.`;
+        } else if (solvedCount < totalQuests) {
+          statusTitle.textContent = `Awesome! ${totalQuests - solvedCount} left!`;
+          statusDesc.innerHTML = `You've earned <strong>${state.gems} 💎 Gems</strong>. Keep collaborating!`;
+        } else {
+          statusTitle.textContent = "MashaAllah! 100% PLSV Master!";
+          statusDesc.innerHTML = `Grade 7 unlocked <strong>250 💎 Gems</strong> and mastered Linear Equations!`;
+        }
+      }
+
+      for (let i = 1; i <= 5; i++) {
+        const dotWrapper = document.getElementById(`quest-dot-${i}`);
+        if (!dotWrapper) continue;
+        const circle = dotWrapper.querySelector('div');
+        if (state.solvedQuests.has(i)) {
+          circle.className = 'w-7 h-7 rounded-full bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center shadow-2xs transition-all';
+          circle.textContent = '✓';
+        }
+      }
+    }
+
+    // ---------------------------------------------------------------------
+    // 14. 80-MINUTE (2 JP) CLASS TIMER & CHECKLIST LOGIC
+    // ---------------------------------------------------------------------
+    function formatTime(totalSeconds) {
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function updateTimerDisplay() {
+      const display = document.getElementById('class-timer-display');
+      if (display) {
+        display.textContent = formatTime(state.timerRemainingSeconds);
+      }
+    }
+
+    function toggleClassTimer() {
+      const btn = document.getElementById('timer-start-pause-btn');
+      if (state.timerRunning) {
+        clearInterval(state.timerIntervalId);
+        state.timerRunning = false;
+        if (btn) btn.textContent = '▶ Resume';
+      } else {
+        state.timerRunning = true;
+        if (btn) btn.textContent = '⏸ Pause';
+        state.timerIntervalId = setInterval(() => {
+          if (state.timerRemainingSeconds > 0) {
+            state.timerRemainingSeconds--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(state.timerIntervalId);
+            state.timerRunning = false;
+            if (btn) btn.textContent = '▶ Start';
+            playChime('success');
+            showToast('⏰ Time is up for this RPM phase!', 'warning');
+          }
+        }, 1000);
+      }
+    }
+
+    function resetClassTimer() {
+      clearInterval(state.timerIntervalId);
+      state.timerRunning = false;
+      state.timerRemainingSeconds = state.timerTotalSeconds;
+      const btn = document.getElementById('timer-start-pause-btn');
+      if (btn) btn.textContent = '▶ Start';
+      updateTimerDisplay();
+    }
+
+    function setClassTimerMinutes(minutes, label) {
+      clearInterval(state.timerIntervalId);
+      state.timerRunning = false;
+      state.timerTotalSeconds = minutes * 60;
+      state.timerRemainingSeconds = minutes * 60;
+
+      const subtitle = document.getElementById('class-timer-subtitle');
+      const btn = document.getElementById('timer-start-pause-btn');
+      if (subtitle) subtitle.textContent = label;
+      if (btn) btn.textContent = '▶ Start';
+      updateTimerDisplay();
+      playChime('click');
+    }
+
+    function updateChecklistCount() {
+      const checkboxes = document.querySelectorAll('.lesson-flow-cb');
+      const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+      const label = document.getElementById('checklist-progress-label');
+      if (label) label.textContent = `${checked}/${checkboxes.length} Done`;
+    }
+
+    // ---------------------------------------------------------------------
+    // 15. INITIALIZE APP ON DOM LOAD
+    // ---------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      populateRosterDatalist();
+      renderBalanceScale();
+      renderGuidedExample();
+      renderChallengeCards();
+      updateAllProgressUI();
+      updateTimerDisplay();
+    });
+  </script>
+</body>
+</html>
